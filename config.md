@@ -1,0 +1,6 @@
+[title]: <> (Yago Pajarino Blog)
+[icon]: <> (https://cdn-icons-png.flaticon.com/512/10026/10026257.png)
+[server]: <> (localhost:3000)
+[website_root]: <> (/var/www/html)
+[domain]: <> (localhost:3000)
+[posts_directory]: <> (posts/)
