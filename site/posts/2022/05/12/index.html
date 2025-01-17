@@ -1,0 +1,338 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="Criterios de Divisibilidad">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Criterios de Divisibilidad" />
+<meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/10026/10026257.png" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> Criterios de Divisibilidad </h1>
+<small style="float:left; color: #888"> 2022 May 12 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> Criterios de Divisibilidad </title>
+
+<h2 id="introducción">Introducción</h2>
+<p><img src="../../../../images/1.png" /></p>
+<p>¿Por qué vale que un número es <strong>par</strong> si su última
+cifra es 0, 2, 4, 6 u 8?</p>
+<p>¿Cómo sabemos que un número es divisible por 5 si termina en 0 o
+5?</p>
+<p>¿Y que un número es divisible por 3 si la suma de sus dígitos lo
+es?</p>
+<p>O cómo se justifican <a
+href="https://es.wikipedia.org/wiki/Divisibilidad#Criterios_de_divisibilidad">todos
+estos</a>.</p>
+<h3 id="divisibilidad">Divisibilidad</h3>
+<p>El algoritmo de división de números enteros nos dice que:</p>
+<p><span class="math display">\[
+\forall (a, b) \in \mathbb{Z}^2: \exists (k, r) \in \mathbb{Z}^2 \wedge
+(0 \leq r &lt; b) / a = k.b + r
+\]</span></p>
+<blockquote>
+<p>Lista de símbolos matemáticos y su significado. <a
+href="https://es.wikipedia.org/wiki/Anexo:S%C3%ADmbolos_matem%C3%A1ticos">link</a></p>
+</blockquote>
+<p>En palabras,</p>
+<p><em>Para todo <strong>a</strong> y <strong>b</strong> enteros,
+existen <strong>k,</strong> <strong>r</strong> enteros con r entre 0 y
+<strong>b;</strong> tales que <strong>a</strong> es igual a k</em>b +
+r*</p>
+<p>Y coloquialmente llamamos:</p>
+<ul>
+<li>a = dividendo</li>
+<li>b = divisor</li>
+<li>k = cociente</li>
+<li>r = resto</li>
+</ul>
+<p>Y entonces, decimos que:</p>
+<p><span class="math display">\[
+a|b \iff \exists k \in \mathbb{Z}/a = k.b
+\]</span></p>
+<p>💡 El símbolo "|" significa "divide"</p>
+<p>O lo que es lo mismo, que el resto de dividir <strong>a</strong> por
+<strong>b</strong> es igual a 0.</p>
+<h4 id="congruencia">Congruencia</h4>
+<p>La notación de congruencia, derivada del algoritmo de división, nos
+permite relacionar el divisor, dividendo y resto de la siguiente
+manera.</p>
+<p><span class="math display">\[
+a = k.b + r \iff a \equiv r (b)
+\]</span></p>
+<p>En palabras decimos que "<em>a es congruente a r módulo b"</em></p>
+<p>Y una de las propiedades de la congruencia, que llamamos "tomar
+resto" es</p>
+<p><span class="math display">\[
+a \equiv \text{resto}(a,c) (c)
+\]</span></p>
+<p>Por ejemplo,</p>
+<p><span class="math display">\[
+26 \equiv resto(26, 4)(4) \equiv 2(4)
+\]</span></p>
+<p>Pues el restos de dividir a 26 por 4 es igual a 2. Esta propiedad va
+a ser usada en la demostración de los criterios.</p>
+<h3 id="sistemas-de-numeración">Sistemas de numeración</h3>
+<p>A lo largo de la historia han existido (y existen) muchos sistemas de
+numeración distintos, con ventajas y desventajas entre sí.</p>
+<p>https://www.youtube.com/watch?v=ggOPJ8gafPo</p>
+<p>Un sistema de numeración no es más que un conjunto de símbolos y
+reglas que permiten construir todos los números válidos (para ese
+sistema). Quizás uno de los más reconocidos, distinto al que usamos
+todos los días, sea el sistema de numeración romano, que utiliza letras
+y la posición en las que se escriben para identificar los números.</p>
+<p>El sistema que usamos hoy en día es el sistema de numeración decimal,
+o en base 10.</p>
+<p>Las reglas de este sistema son simples pero muy poderosas:</p>
+<ol type="1">
+<li><p>Se utilizan 10 símbolos: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9</p></li>
+<li><p>Todo número <em>a</em> se puede escribir como</p></li>
+</ol>
+<p><span class="math display">\[
+a = c_1 \cdot 10^{n} + c_2 \cdot 10^{n-1} + ... + c_{n-1} \cdot 10^{1} +
+c_{n} \cdot 10^{0}
+\]</span></p>
+<p>Donde <span class="math inline">\(n\)</span> es la cantidad de
+dígitos menos uno del número y <span class="math inline">\(c_i\)</span>
+es el símbolo en la posición <span class="math inline">\(i\)</span>.</p>
+<p>🔑 Esta es la notación formal para el sistema que usamos de forma
+natural todos los días</p>
+<p>Por ejemplo sabemos que el número,</p>
+<p><span class="math display">\[
+\begin{align*}
+1234 &amp;= 1 \cdot 10^3 + 2 \cdot 10^2 + 3 \cdot 10^1 + 4 \cdot 10^0 \\
+1234 &amp;= 1000 + 200 + 30 + 4 \\
+\end{align*}
+\]</span></p>
+<p>Aunque no estemos haciendo esta suma cada vez que escribimos un
+número.</p>
+<p>Existen otros sistemas de numeración muy usados como el <a
+href="https://es.wikipedia.org/wiki/Sistema_binario">binario</a> o el <a
+href="https://es.wikipedia.org/wiki/Sistema_hexadecimal">hexadecimal</a></p>
+<h2 id="por-qué-valen-los-criterios-de-divisibilidad">¿Por qué valen los
+criterios de divisibilidad?</h2>
+<p>Vamos a ir descubriendo por qué valen los criterios de divisibilidad
+del dos, tres y cinco.</p>
+<h3 id="divisibilidad-por-2">Divisibilidad por 2</h3>
+<p>Un número es divisible por 2 si: el número termina en una cifra par
+(0, 2, 4, 6, 8).</p>
+<p>Vamos a probar la validez de este criterio (y todos los demás) usando
+todo lo que estuvimos viendo previamente.</p>
+<p>Sabemos que un número <span class="math inline">\(n\)</span> es
+divisible por <span class="math inline">\(2\)</span> si <span
+class="math inline">\(\exists k \in \mathbb{Z} / n = 2k\)</span> y por
+congruencias sabemos que</p>
+<p><span class="math display">\[
+n = 2k \iff n \equiv 0(2)
+\]</span></p>
+<p>Por lo tanto vamos a querer probar que cualquier números es divisible
+por dos si es congruente a cero módulo 2.</p>
+<p>Ahora usamos lo que vimos del sistema de numeración decimal, sabemos
+que <span class="math inline">\(n\)</span> se puede escribir como</p>
+<p><span class="math display">\[
+n = c_1 \cdot 10^{r} + c_2 \cdot 10^{r-1} + ... + c_{r-1} \cdot 10^{1} +
+c_{r} \cdot 10^{0}
+\]</span></p>
+<p>Entonces juntando ambas cosas</p>
+<p><span class="math display">\[
+n \equiv 0(2) \iff c_1 \cdot 10^{r} + c_2 \cdot 10^{r-1} + ... + c_{r-1}
+\cdot 10^{1} + c_{r} \cdot 10^{0} \equiv 0 (2)
+\]</span></p>
+<p>Si ahora tomamos resto a cada sumando</p>
+<p><span class="math display">\[
+n \equiv 0(2) \iff c_1 \cdot 0^{r} + c_2 \cdot 0^{r-1} + ... + c_{r-1}
+\cdot 0^{1} + c_{r} \cdot 1 \equiv 0 (2)
+\]</span></p>
+<p>Pues sabemos que el resto de dividir a 10 por 2 es igual a 0, y que
+cualquier número elevado a la 0 es 1.</p>
+<p>Por lo tanto nos queda algo del estilo</p>
+<p><span class="math display">\[
+n \equiv 0(2) \iff c_{r} \cdot 1 \equiv 0 (2) \iff c_{r} \equiv 0(2)
+\]</span></p>
+<p>Y esto quiere decir, como queríamos probar, que un número es
+divisible por 2 (o congruente a cero módulo 2) si termina en un número
+par.</p>
+<h3 id="divisibilidad-por-3">Divisibilidad por 3</h3>
+<p>Un número es divisible por 3 si: la suma de sus cifras es un múltiplo
+de 3.</p>
+<p>Vamos a usar el mismo razonamiento que en el caso anterior</p>
+<p>Sabemos que un número <span class="math inline">\(n\)</span> es
+divisible por <span class="math inline">\(3\)</span> si <span
+class="math inline">\(\exists k \in \mathbb{Z} / n = 3k\)</span> y por
+congruencias sabemos que</p>
+<p><span class="math display">\[
+n = 3k \iff n \equiv 0(3)
+\]</span></p>
+<p>Por lo tanto vamos a querer probar que cualquier números es divisible
+por dos si es congruente a 0 módulo 3.</p>
+<p>Ahora usamos lo que vimos del sistema de numeración decimal, sabemos
+que <span class="math inline">\(n\)</span> se puede escribir como</p>
+<p><span class="math display">\[
+n = c_1 \cdot 10^{r} + c_2 \cdot 10^{r-1} + ... + c_{r-1} \cdot 10^{1} +
+c_{r} \cdot 10^{0}
+\]</span></p>
+<p>Entonces juntando ambas cosas</p>
+<p><span class="math display">\[
+n \equiv 0(3) \iff c_1 \cdot 10^{r} + c_2 \cdot 10^{r-1} + ... + c_{r-1}
+\cdot 10^{1} + c_{r} \cdot 10^{0} \equiv 0 (3)
+\]</span></p>
+<p>Si ahora tomamos resto a cada sumando</p>
+<p>&lt;aside 🔑 Acá está la diferencia con el caso anterior (y con los
+que sigan).</p>
+<p>&lt;/aside</p>
+<p><span class="math display">\[
+n \equiv 0(3) \iff c_1 \cdot 1^{r} + c_2 \cdot 1^{r-1} + ... + c_{r-1}
+\cdot 1^{1} + c_{r} \cdot 1 \equiv 0 (3)
+\]</span></p>
+<p>En este caso, el resto de dividir a 10 por 3 es igual a 1.</p>
+<p>Por lo tanto nos queda algo del estilo</p>
+<p><span class="math display">\[
+n \equiv 0(3) \iff c_1 + c_2 + ... + c_{r-1} + c_{r} \equiv 0 (3)
+\]</span></p>
+<p>Y esto quiere decir, como queríamos probar, que un número es
+divisible por 3 (o congruente a 0 módulo 3) si la suma de sus cifras
+(sus <span class="math inline">\(c_i\)</span>) es divisible por 3.</p>
+<h3 id="divisibilidad-por-5">Divisibilidad por 5</h3>
+<p>Un número es divisible por 5 si: la última cifra es 0 o 5.</p>
+<p>De nuevo usamos los visto en los casos anteriores.</p>
+<p>Sabemos que un número <span class="math inline">\(n\)</span> es
+divisible por <span class="math inline">\(5\)</span> si <span
+class="math inline">\(\exists k \in \mathbb{Z} / n = 5k\)</span> y por
+congruencias sabemos que</p>
+<p><span class="math display">\[
+n = 5k \iff n \equiv 0(5)
+\]</span></p>
+<p>Por lo tanto vamos a querer probar que cualquier números es divisible
+por dos si es congruente a 0 módulo 5.</p>
+<p>Ahora usamos lo que vimos del sistema de numeración decimal, sabemos
+que <span class="math inline">\(n\)</span> se puede escribir como</p>
+<p><span class="math display">\[
+n = c_1 \cdot 10^{r} + c_2 \cdot 10^{r-1} + ... + c_{r-1} \cdot 10^{1} +
+c_{r} \cdot 10^{0}
+\]</span></p>
+<p>Entonces juntando ambas cosas</p>
+<p><span class="math display">\[
+n \equiv 0(5) \iff c_1 \cdot 10^{r} + c_2 \cdot 10^{r-1} + ... + c_{r-1}
+\cdot 10^{1} + c_{r} \cdot 10^{0} \equiv 0 (5)
+\]</span></p>
+<p>Si ahora tomamos resto a cada sumando</p>
+<p><span class="math display">\[
+n \equiv 0(5) \iff c_1 \cdot 0^{r} + c_2 \cdot 0^{r-1} + ... + c_{r-1}
+\cdot 0^{1} + c_{r} \cdot 1 \equiv 0 (5)
+\]</span></p>
+<p>En este caso, el resto de dividir a 10 por 5 es igual a 0.</p>
+<p>Por lo tanto nos queda algo muy similar al criterio del 2</p>
+<p><span class="math display">\[
+n \equiv 0(5) \iff c_{r} \equiv 0 (5)
+\]</span></p>
+<p>Y esto quiere decir, como queríamos probar, que un número es
+divisible por 5 (o congruente a 0 módulo 5) si la última cifra es
+divisible por 5, o lo que es lo mismo, que termina en 0 o 5.</p>
+<p>El último criterio que no vamos a ver acá pero también es muy
+interesante es el del 11.</p>
+<h2 id="conclusiones">Conclusiones</h2>
+<p>Crear atajos nos ayuda a resolver problemas de forma eficiente.
+Gracias a los criterios de divisibilidad, sabemos que el número
+19284758403294 es divisible por 2 ya que termina en 4, sin tener que
+andar haciendo las cuentas.</p>
+<p>Muchas veces nos quedamos con <em>la fórmula</em> que nos permite
+resolver problemas sin saber por qué vale lo que sabemos que es cierto.
+Los criterios de divisibilidad son ciertos y valen; ya vimos por qué
+🤓</p>
+ </div> 
