@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="Mejorando la UX de Cocos 🥥">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Mejorando la UX de Cocos 🥥" />
+<meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/10026/10026257.png" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> Mejorando la UX de Cocos 🥥 </h1>
+<small style="float:left; color: #888"> 2024 Feb 26 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> Mejorando la UX de Cocos 🥥 </title>
+
+<p>Si vos también estás manija del bullmarket con el cambio de gobierno,
+habrás averiguado formas de invertir tu plata y quizás te hayas
+encontrado con Cocos Capital, que permite comprar y vender productos
+financieros sin comisiones (no es chivo) (por ahora).</p>
+<p>Hace un par de meses vengo usando la web de cocos para invertir parte
+de mis ingresos. Casi al toque de empezar a usarla encontré algo que se
+puede mejorar a nivel experiencia (personal) de usuario. La sección de
+mercado, que permite ver todos los activos con su precio, volumen,
+variación, etc. no se puede ordenar por ninguna de estas variables.</p>
+<p>En mi caso, por ejemplo me interesaba ver cual es el activo con mayor
+volumen operado, cantidad de operaciones o el que tiene la mayor
+variación en el precio.</p>
+<div class="tip">
+<p>El volumen operado ayuda a prevenir riesgos de liquidez: el riesgo de
+comprar un activo y luego no poder venderlo porque nadie te lo quiera
+comprar 🥲</p>
+</div>
+<p>El desafío entonces era desarrollar un script que permitiera ordenar
+el panel de instrumentos por cualquiera de las variables que se
+muestran: precio, variación, cajas de puntas comprador y vendedor,
+precio mínimo, máximo, total operado, cantidad de operaciones; de forma
+ascendente y descendente. Hacerlo en VanillaJS para poder integrarlo
+directamente en el navegador web.</p>
+<p>Con aprox 100 lineas de Vanilla JavaScript se puede lograr. El video
+está disponible en <a
+href="https://www.linkedin.com/feed/update/urn:li:activity:7137816305012781056/">este
+post de LinkedIn</a></p>
+<p>El código es open source y está disponible en <a
+href="https://github.com/yagopajarino/cocos-orden-panel">cocos-order-panel
+| Github</a></p>
+<h2 id="cómo">Cómo</h2>
+<p>La idea es profundizar acerca de cómo lograr lo anterior. Si venís de
+LinkedIn, habrás visto que lo de arriba es el post que acompaña a <a
+href="https://www.linkedin.com/feed/update/urn:li:activity:7137816305012781056/">esta
+publicación</a></p>
+<p>Si viste el video, lo que hago es copiar el codigo del repositorio y
+pegarlo en la consola que google chrome. Cada pagina web a la que
+accedemos carga lo que se conoce como DOM que el navegador se encarga de
+mostrar en la pantalla.</p>
+<div class="tip">
+<p>DOM (Document Object Model) es la representación de la estructura de
+la web en un árbol que permite conectarla scripts</p>
+</div>
+<p>Entonces gracias a la interfaz que provee el DOM, se puede cargar un
+script a la web y que este lo interprete y ejecute.</p>
+<h2 id="algoritmo">Algoritmo</h2>
+<p>El algoritmo debe:</p>
+<ol type="1">
+<li>Hallar todos los titulos de columnas de la tabla de
+instrumentos</li>
+<li>Agregar un eventListener a cada titulo de columna
+<ol type="1">
+<li>Cuando se haga click debe ordenar todas las filas en base al titulo
+seleccionado</li>
+<li>Debe hacerlo primero de forma ascendente y luego descendente</li>
+</ol></li>
+</ol>
+<p>Para ello hay que estudiar como está estructurada la web de cocos,
+viendo el HTML, todos los titulos de columna comparten la clase
+<code>markets-table-header</code> luego usando
+<code>document.querySelector(".markets-table-header");</code> se obtiene
+un array con los headers de las columnas.</p>
+<p>Lo que sigue es a cada uno de esos elementos agregar un eventListener
+que dada una columna:</p>
+<ol type="1">
+<li>identifique que numero de columna se clickeo</li>
+<li>obtenga todas las filas de la tabla</li>
+<li>ordene todas las filas de la tabla en base al numero de columna</li>
+<li>borre todas las filas de la tabla</li>
+<li>agregue las filas de la tabla de forma ordenada</li>
+</ol>
+<p>Esta es la parte mas complicada del proceso porque hay que
+identificar que columna se clickeo usando el titulo, idnetificar que
+numero de columna tiene este titulo, obtener todos los datos de esa
+columna, ordenar las filas y presentar.</p>
+<p>Las linea 6 a 91 se encargan de todo este proceso (el 68% del
+código)</p>
+<div class="tip">
+<p>La idea central es entender como está estructurado el HTML para poder
+identificar en donde aplicar el listener y como se pueden extraer los
+datos necesarios para los calculos</p>
+</div>
+<p><em>Go for esos cocos</em></p>
+<p>El código es open source y está disponible en <a
+href="https://github.com/yagopajarino/cocos-orden-panel">cocos-order-panel
+| Github</a></p>
+ </div> 
