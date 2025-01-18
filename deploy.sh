@@ -8,11 +8,8 @@ python3 publish.py ./posts/*
 # Switch to gh-pages branch
 git checkout gh-pages
 
-# Remove existing files
-git rm -rf .
-
-# Copy built site
-cp -R site/* .
+cp -r site/* 
+rm -rf site/
 
 # Commit and push
 git add .
