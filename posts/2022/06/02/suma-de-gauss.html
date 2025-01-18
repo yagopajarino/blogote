@@ -1,0 +1,275 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="Suma de Gauss">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Suma de Gauss" />
+<meta name="twitter:image" content="https://cdn-icons-png.flaticon.com/512/10026/10026257.png" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> Suma de Gauss </h1>
+<small style="float:left; color: #888"> 2022 Jun 02 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> Suma de Gauss </title>
+
+<p>Debe ser la anecdota más contada por profesores de matemáticas del
+mundo. La del joven niño prodigio que resuelve un problema mega
+complicado en muy poco tiempo.</p>
+<p><strong>Capaz no la escuchaste y soy el primero en
+contartela.</strong></p>
+<h2 id="introducción">Introducción</h2>
+<p>A mediados de 1800, Alemania, un profesor de matemática da a sus
+alumnos de primaria un desafiante problema:</p>
+<blockquote>
+<p>Sumar todos los números naturales del 1 al 100.</p>
+</blockquote>
+<p>Al poco tiempo, mucho antes de los esperado por el profesor, un joven
+<a href="https://es.wikipedia.org/wiki/Carl_Friedrich_Gauss">Carl
+Friederich Gauss</a> entrega su respuesta al profesor, 5050.</p>
+<p>No se sabe mucho de la veracidad de esta historia, ni muchos más
+detalles, pero alcanza para sorprender a todos los que la escuchan por
+primera vez. (Y posta me sorprendió cuando la esuche en una de mis
+primeras clases de <a
+href="https://cms.dm.uba.ar/academico/materias/2docuat2021/Algebra%20I/">álgebra
+I</a>).</p>
+<p>La pregunta natural que surge es como puede un chico sumar tantos
+números tan rápido. Veamos como sería la cosa, o como lo hubiera
+encarado yo:</p>
+<ul>
+<li>1+2 = 3</li>
+<li>3+3 = 6</li>
+<li>6+4 = 10</li>
+<li>10+5 = 15</li>
+<li>15+6 = 21</li>
+<li>21+7 = 28</li>
+</ul>
+<p>Y casi que a partir de allí se empieza a complicar la cosa.</p>
+<p>Sin embargo, el jóven Carl entendió que:</p>
+<ul>
+<li>1+100 = 101</li>
+<li>2+99 = 101</li>
+<li>3+98 = 101</li>
+<li>...</li>
+<li>48+53 = 101</li>
+<li>49+52 = 101</li>
+<li>50+51 = 101</li>
+</ul>
+<p>Y a partir de acá se repite lo mismo con los terminos dados
+vuelta.</p>
+<p>Entonces hay 51 términos que suman 101, luego</p>
+<p><span class="math display">\[
+51 \cdot 101 = 5050
+\]</span></p>
+<p>Que es efectivamente la suma de todos los números naturales entre 1 y
+100.</p>
+<h2 id="demostración">Demostración</h2>
+<p>Lo siguiente que conviene preguntarse es si esta idea se puede
+extender al resto de los naturales y como se puede probar que se cumple
+para la suma entre 1 y 47, o entre 1 y 86.</p>
+<p>Formalmente, el problema de sumar los primeros <span
+class="math inline">\(n\)</span> números naturales <span
+class="math inline">\(S\)</span> se puede expresar como:</p>
+<p><span class="math display">\[
+S = \sum_{i=1}^{n}i
+\]</span></p>
+<p>Miremos lo siguiente, sea <span class="math inline">\(n\)</span> un
+número natural,</p>
+<p><span class="math display">\[
+\begin{align*}
+S &amp;= 1 +\; \; \; \;\;2\;\;\;\;\:+...+ (n-1) + n \\
+S &amp;= n + (n-1) +...+ \; \; \; \;\;2\;\;\;\;\: + 1 \\
+\end{align*}
+\]</span></p>
+<p>Sumando nos queda,</p>
+<p><span class="math display">\[
+2S = (n+1) + (n+1) + ... + (n+1) \\
+2S = n(n+1) \\
+S = \frac{n(n+1)}{2}
+\]</span></p>
+<p>Este es el término general de la sumatoria de los <span
+class="math inline">\(n\)</span> primeros naturales.</p>
+<h3 id="inducción">Inducción</h3>
+<p>Vamos a probar que vale que para todo <span
+class="math inline">\(n\)</span> natural, la suma de los primeros <span
+class="math inline">\(n\)</span> naturales es igual a <span
+class="math inline">\(\frac{n(n+1)}{2}\)</span></p>
+<p>Para eso vamos a usar el <a
+href="https://es.wikipedia.org/wiki/Inducci%C3%B3n_matem%C3%A1tica">principio
+de inducción</a>. Esencialmente lo que el principio propone es que si
+probamos (siempre usando los números naturales) que un predicado
+vale:</p>
+<ol type="1">
+<li>Para un primer caso (llamado caso base) y,</li>
+<li>Si vale para un k-ésimo elemento cualquiera implica que vale para el
+siguiente.</li>
+</ol>
+<p>Entonces el predicado vale para cualquier natural.</p>
+<p>Definimos entonces el predicado</p>
+<p><span class="math display">\[
+⁍
+\]</span></p>
+<p>Como queremos probar que el predicado vale para cualquier natural,
+proponemos <span class="math inline">\(n=1\)</span> como caso base.</p>
+<h3 id="caso-base-n-1">Caso base n = 1</h3>
+<p>Queremos probar que vale el predicado, como es una igualdad vale con
+probar que ambos lados de la igualdad valen lo mismo.</p>
+<p>Luego donde dice <span class="math inline">\(n\)</span> reemplazamos
+con <span class="math inline">\(1\)</span></p>
+<p><span class="math display">\[
+p(1): \sum_{i=1}^{1} i = \frac{1(1+1)}{2} \\
+p(1): 1 = \frac{2}{2} \\
+p(1): 1 = 1 \\
+\]</span></p>
+<p>Por lo tanto <span class="math inline">\(p(1)\)</span> es
+verdadero.</p>
+<h3 id="paso-inductivo">Paso inductivo</h3>
+<p>Ahora queremos probar que dado un <span
+class="math inline">\(k\)</span> natural, vale que <span
+class="math inline">\(p(k) \implies p(k+1)\)</span></p>
+<p>Para probar una <a
+href="https://es.wikipedia.org/wiki/Implicaci%C3%B3n">implicación
+logica</a> alcanza con tomar como verdadero el antecedente, en este caso
+<span class="math inline">\(p(k)\)</span> y probar que vale el
+consecuente <span class="math inline">\(p(k+1)\)</span></p>
+<p>Entonces, si tomamos que <span class="math inline">\(p(k)\)</span> es
+verdadero, sabemos que vale</p>
+<p><span class="math display">\[
+p(k): \sum_{i=1}^{k} i = \frac{k(k+1)}{2}
+\]</span></p>
+<p>Y lo que queremos probar es que sabiendo esto, vale</p>
+<p><span class="math display">\[
+p(k+1): \sum_{i=1}^{k+1} i = \frac{(k+1)(k+1+1)}{2} \\
+p(k+1): \sum_{i=1}^{k+1} i = \frac{(k+1)(k+2)}{2} = \frac{k^2 + 3k +
+2}{2}
+\]</span></p>
+<p>Pero, por definición de la sumatoria</p>
+<p><span class="math display">\[
+\sum_{i=1}^{k+1} i = (\sum_{i=1}^{k} i) + k+1
+\]</span></p>
+<p>Pero ahora puedo reemplazar la sumatoria hasta <span
+class="math inline">\(k\)</span> por lo que se que vale.</p>
+<p><span class="math display">\[
+\begin{align*}
+\sum_{i=1}^{k+1} i &amp;= (\sum_{i=1}^{k} i) + k+1 \\
+&amp;=\frac{k(k+1)}{2} + k+1 \\
+&amp;=\frac{k^2+k}{2} + k+1 \\
+&amp;=\frac{k^2+k+ 2k+2}{2}  \\
+&amp;=\frac{k^2+3k+2}{2}  \\
+\end{align*}
+\]</span></p>
+<p>Como se quería probar. Entonces así queda probado el paso inductivo y
+habiendo probado antes el caso base queda probado que <span
+class="math inline">\(p(n)\)</span> vale para todo número natural.</p>
+<p>En conclusión, para cualquier <span class="math inline">\(n\)</span>
+natural la suma de los primeros <span class="math inline">\(n\)</span>
+números naturales es igual a <span
+class="math inline">\(\frac{n(n+1)}{2}\)</span>.</p>
+<h2 id="recursos">Recursos</h2>
+<ul>
+<li><a
+href="https://francis.naukas.com/2010/04/15/iii-carnaval-de-matematicas-toda-la-verdad-sobre-la-anecdota-de-gauss-el-nino-prodigio-su-profesor-y-la-suma-de-1-a-100/#:~:text=Carl%20Friedrich%20Gauss%20obtuvo%20la,Una%20historia%20mil%20veces%20contada.">Toda
+la verdad sobre la anécdota de Gauss, el niño prodigio, su profesor y la
+suma de 1 a 100 - La Ciencia de la Mula Francis</a></li>
+<li><a href="https://es.wikipedia.org/wiki/Suma_de_Gauss">Suma de Gauss
+- Wikipedia, la enciclopedia libre</a></li>
+<li><a href="https://es.wikipedia.org/wiki/Carl_Friedrich_Gauss">Carl
+Friedrich Gauss - Wikipedia, la enciclopedia libre</a></li>
+</ul>
+ </div> 
