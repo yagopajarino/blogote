@@ -1,0 +1,278 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="La Conjetura de Thor 🐶">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="La Conjetura de Thor 🐶" />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> La Conjetura de Thor 🐶 </h1>
+<small style="float:left; color: #888"> 2023 Apr 02 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> La Conjetura de Thor 🐶 </title>
+
+<p>Los que me conocen saben que una de mis rutinas favoritas es salir a
+pasear con mi amigo Thor 🐶 (golden retriever de 2 años) todos los días
+por la noche, normalmente de 22:30 a 23:30.</p>
+<h2 id="el-juego-de-los-edificios">El juego de los edificios</h2>
+<p>Una de esas noches, mientras caminaba por el barrio y se ocurrió el
+siguiente juego:</p>
+<blockquote>
+<p><em>Cada edificio tiene un número de puerta que lo identifica, en mi
+barrio son todos de cuatro dígitos. El juego consiste en tomar ese
+número y determinar si usando los cuatro dígitos y las operaciones suma,
+resta y multiplicación se puede llegar a otro número que tenga resto 0
+al dividirlo por 10 (o que sea congruente a 0 módulo 10)</em></p>
+</blockquote>
+<p>Hay que usar todos los dígitos y cada dígito solo puede ser usado una
+sola vez.</p>
+<p>Va un ejemplo. Digamos que estás caminando por la calle y querés
+jugar. Mirás el número de edificio y ves un 3687 anotado en la
+puerta.</p>
+<p><span class="math display">\[
+3687 \implies (8+7) * 6 *3 = 270 \equiv 0 (10)
+\]</span></p>
+<p>Entonces, como encontraste el 270 a partir del 3687, ganás un punto y
+seguís al siguiente edificio.</p>
+<aside>
+<p>💡 Si se encuentra una combinación, se dice que ese número es
+<strong>combinable</strong></p>
+</aside>
+<p>En este caso, el <strong>3687 es combinable</strong></p>
+<h2 id="la-conjetura-de-thor">La conjetura de Thor</h2>
+<p>Al principio era bastante complicado determinar si un número de
+puerta de edificio era combinable o no, pero después de un par de noches
+jugando mientras paseaba, empecé a encontrar algunos patrones que ayudan
+a darse cuenta fácil si un número lo es.</p>
+<p>Por ejemplo y quizás la más intuitiva, si dentro de las cuatro cifras
+que tengo, hay dos de ellas que suman 10, luego el número es combinable.
+Por ejemplo con el 4671:</p>
+<p><span class="math display">\[
+4671 \implies (4+6) * 7 * 1 = 70 \equiv 0 (10)
+\]</span></p>
+<p>Un par de noches más tarde, estaba encontrando combinaciones para
+todos los números de puerta que me cruzaba, parecía raro pero
+funcionaba, así surgió <strong>La Conjetura de Thor</strong> que dice
+así:</p>
+<blockquote>
+<p><em>Para todo número natural de cuatro cifras, usando todos sus
+dígitos una sola vez y las operaciones suma, resta, multiplicación se
+puede encontrar otro número tal que al dividirlo por 10 tenga resto
+cero.</em></p>
+</blockquote>
+<p>Ya no me quedaba con los números que me cruzaba en la calle, buscaba
+generalizarlo a todos los números de cuatro cifras 🤯</p>
+<h2 id="probando-la-conjetura">Probando la conjetura</h2>
+<p>Para probar la conjetura se me ocurrió lo siguiente: defino el
+conjunto de los naturales de cuatro digitos <span
+class="math inline">\(NC\)</span> (No Combinables), meto todos los
+números no combinables ahí dentro y cuento cuantos elementos tiene <span
+class="math inline">\(NC\)</span>. Luego la conjetura es cierta si la
+cantidad de elementos en <span class="math inline">\(NC\)</span> es
+igual a 0.</p>
+<p>Parto asumiendo que todos los números de cuatro cifras son no
+combinables, luego <span class="math inline">\(NC = \{ 1000, 1001, ...,
+9998, 9999 \}\)</span> y <span class="math inline">\(\#NC = 10*10*10*10
+= 10^4 = 10000\)</span></p>
+<aside>
+<p>💡 El símbolo # se usa para nombrar el cardinal: cantidad de
+elementos de un conjunto.</p>
+</aside>
+<h3 id="reglas-de-combinabilidad">Reglas de combinabilidad</h3>
+<p>Hay ciertas reglas que automáticamente convierten a un número en
+combinable y bajan el cardinal de <span
+class="math inline">\(NC\)</span></p>
+<ol type="1">
+<li><p>Si el número contiene 2 digitos iguales es combinables pues <span
+class="math inline">\((a-a) * c = 0, \forall a,c \in
+\mathbb{N}\)</span></p>
+<p><span class="math inline">\(\#NC = 10 * 9 * 8 * 7 =
+5040\)</span></p></li>
+<li><p>Si el número contiene un 0 es combinable pues <span
+class="math inline">\(0 * c = 0, \forall c \in \mathbb{N}\)</span></p>
+<p><span class="math inline">\(\#NC = 9*8*7*6 = 3024\)</span></p></li>
+<li><p>Si el número contiene un 5 es combinable. Imaginemos que un
+número tiene al 5 entre sus dígitos y <span class="math inline">\(d_1,
+d_2, d_3\)</span> los demás dígitos que pueden ser cualquiera de <span
+class="math inline">\(\{ 1,2,3,4,6,7,8,9 \}\)</span>. Si elijo dos de
+esos números al azar, me aseguro que:</p>
+<ol type="1">
+<li>Uno de ellos es par o</li>
+<li>Ambos son impares y por lo tanto la suma es par pues <span
+class="math inline">\(a+b = 2k+1 + 2j + 1 = 2k +2j + 2 = 2(k+j+1)
+\implies a+b\)</span> es par</li>
+</ol>
+<p>Por lo tanto <span class="math inline">\(5*p = 5*2k = 10*k \equiv 0
+(10), \forall p \equiv 0 (2)\)</span></p>
+<p><span class="math inline">\(\#NC = 8*7*6*5 = 1680\)</span></p></li>
+</ol>
+<p>Con estas tres reglas automáticamente bajamos la cantidad de
+candidatos no combinables, de 10000 a 1680.</p>
+<p>Hasta acá todas las reglas que se me ocurrieron para bajar la
+cantidad de no combinables. Lo siguiente que hice fue intentar encontrar
+un número que no sea combinable, eligiendo cifras una a la vez.</p>
+<h3 id="en-busca-del-contraejemplo">En busca del contraejemplo</h3>
+<p>Voy a llamar <span class="math inline">\(d_1, d_2, d_3, d_4\)</span>
+a los dígitos del número, el orden es indistinto. Los dígitos válidos
+son <span class="math inline">\(\{1,2,3,4,6,7,8,9\}\)</span> y no puede
+haber duplicados.</p>
+<ul>
+<li>Si <span class="math inline">\(d1=1\)</span>
+<ul>
+<li><span class="math inline">\(d_2 \in \{2,3,7,8\}\)</span></li>
+<li>Luego quedan 4 dígitos para ubicar en tres posiciones posibles. Hay
+<span class="math inline">\(\binom{4}{3}\)</span> = 4 elecciones
+posibles: 378, 278, 238, 237</li>
+<li>Pero <span class="math inline">\(3+7 = 10\)</span> y <span
+class="math inline">\(2+8=10\)</span>.</li>
+<li>Luego todos los números que tienen 1 son combinables</li>
+</ul></li>
+<li>Si <span class="math inline">\(d_1=2\)</span>
+<ul>
+<li><span class="math inline">\(d_2 \in \{4,6,7,9\}\)</span></li>
+<li>Usando la misma lógica de antes: las posibles elecciones son 679,
+479, 469, 467
+<ul>
+<li>679 es combinable pues <span class="math inline">\(6+7+9 - 2 =
+20\)</span></li>
+<li>479 es combinable pues <span class="math inline">\(4+7+9 =
+20\)</span></li>
+<li>469 y 467 son combinables pues <span
+class="math inline">\(4+6=10\)</span></li>
+</ul></li>
+<li>Luego todos los números que tienen 2 son combinables</li>
+</ul></li>
+<li>Si <span class="math inline">\(d_1 = 3\)</span>
+<ul>
+<li><span class="math inline">\(d_2 \in \{4,6,8,9\}\)</span></li>
+<li>Posibles elecciones: 689, 489, 469, 468
+<ul>
+<li>689 es combinable pues <span class="math inline">\(6+8+9-3 =
+20\)</span></li>
+<li>489 es combinable pues <span class="math inline">\(8+9+3 =
+20\)</span></li>
+<li>469 y 467 es combinable pues <span class="math inline">\(4+6 =
+10\)</span></li>
+</ul></li>
+<li>Luego todos los números que tienen 3 son combinables</li>
+</ul></li>
+<li>Si <span class="math inline">\(d_1 = 4\)</span>
+<ul>
+<li><span class="math inline">\(d_2 \in \{7,8,9\}\)</span></li>
+<li>Solo se puede armar el 4789 pero es combinable pues <span
+class="math inline">\((7+8)*4 = 60\)</span></li>
+<li>Luego todos los números que tienen 4 son combinables</li>
+</ul></li>
+<li>Si <span class="math inline">\(d_1 = 6\)</span>
+<ul>
+<li><span class="math inline">\(d_2 \in \{7,8\}\)</span></li>
+<li>Pero solo quedan 2 digitos para tres restantes.</li>
+<li>Luego todos los números que tienen 6 son combinables</li>
+</ul></li>
+</ul>
+<p>En este punto solo quedan los dígitos <span
+class="math inline">\(\{7,8,9\}\)</span> para formar un número de 4
+cifras.</p>
+<p>Por lo tanto, al no poder generar un número que no sea combinable y
+al barrer todos los casos posibles, pruebo que todos los números de
+cuatro cifras son combinables y la <strong>conjetura de Thor es
+correcta</strong>.</p>
+ </div> 

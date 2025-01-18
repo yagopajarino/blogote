@@ -1,0 +1,175 @@
+<?xml version="1.0" ?>
+<rss version="2.0">
+<channel>
+  <title>Yago Pajarino Blog</title>
+  <link>localhost:3000/</link>
+  <description>Yago Pajarino Blog</description>
+  <image>
+      <url>https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG</url>
+      <title>Yago Pajarino Blog</title>
+      <link>localhost:3000/</link>
+  </image>
+
+<item>
+<title>Tlön, Uqbar, ChatGPT</title>
+<link>localhost:3000/posts//2024/10/08/tlon-uqbar-gpt.html</link>
+<guid>localhost:3000/posts//2024/10/08/tlon-uqbar-gpt.html</guid>
+<pubDate>Tue, 08 Oct 2024 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Precios claros</title>
+<link>localhost:3000/posts//2024/08/20/precios-claros.html</link>
+<guid>localhost:3000/posts//2024/08/20/precios-claros.html</guid>
+<pubDate>Tue, 20 Aug 2024 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Criptografía | Encriptando cosas</title>
+<link>localhost:3000/posts//2024/07/26/encriptando-cosas.html</link>
+<guid>localhost:3000/posts//2024/07/26/encriptando-cosas.html</guid>
+<pubDate>Fri, 26 Jul 2024 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Criptografía | Hello Cryptography</title>
+<link>localhost:3000/posts//2024/07/19/hello-crypto.html</link>
+<guid>localhost:3000/posts//2024/07/19/hello-crypto.html</guid>
+<pubDate>Fri, 19 Jul 2024 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Hello World</title>
+<link>localhost:3000/posts//2024/06/17/hello-world.html</link>
+<guid>localhost:3000/posts//2024/06/17/hello-world.html</guid>
+<pubDate>Mon, 17 Jun 2024 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Mejorando la UX de Cocos 🥥</title>
+<link>localhost:3000/posts//2024/02/26/cocos-ux.html</link>
+<guid>localhost:3000/posts//2024/02/26/cocos-ux.html</guid>
+<pubDate>Mon, 26 Feb 2024 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Race Ceremony</title>
+<link>localhost:3000/posts//2023/08/16/race-ceremony.html</link>
+<guid>localhost:3000/posts//2023/08/16/race-ceremony.html</guid>
+<pubDate>Wed, 16 Aug 2023 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>La Conjetura de Thor 🐶</title>
+<link>localhost:3000/posts//2023/04/02/la-conjetura-de-thor.html</link>
+<guid>localhost:3000/posts//2023/04/02/la-conjetura-de-thor.html</guid>
+<pubDate>Sun, 02 Apr 2023 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>🚍 Linea 152</title>
+<link>localhost:3000/posts//2023/03/23/bondis.html</link>
+<guid>localhost:3000/posts//2023/03/23/bondis.html</guid>
+<pubDate>Thu, 23 Mar 2023 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>El Funny Código Neerlandes</title>
+<link>localhost:3000/posts//2023/03/15/codigo-neerlandes.html</link>
+<guid>localhost:3000/posts//2023/03/15/codigo-neerlandes.html</guid>
+<pubDate>Wed, 15 Mar 2023 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>¿Qué probabilidad hay de obtener el 21% de cashback en Belo?</title>
+<link>localhost:3000/posts//2023/02/24/belo-cashback.html</link>
+<guid>localhost:3000/posts//2023/02/24/belo-cashback.html</guid>
+<pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Recusión</title>
+<link>localhost:3000/posts//2022/06/30/recursion.html</link>
+<guid>localhost:3000/posts//2022/06/30/recursion.html</guid>
+<pubDate>Thu, 30 Jun 2022 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Codeforces 799</title>
+<link>localhost:3000/posts//2022/06/16/codeforces-799.html</link>
+<guid>localhost:3000/posts//2022/06/16/codeforces-799.html</guid>
+<pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Suma de Gauss</title>
+<link>localhost:3000/posts//2022/06/16/suma-de-gauss.html</link>
+<guid>localhost:3000/posts//2022/06/16/suma-de-gauss.html</guid>
+<pubDate>Thu, 16 Jun 2022 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Codeforces 797</title>
+<link>localhost:3000/posts//2022/06/09/codeforces-797.html</link>
+<guid>localhost:3000/posts//2022/06/09/codeforces-797.html</guid>
+<pubDate>Thu, 09 Jun 2022 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Searching Algorithms</title>
+<link>localhost:3000/posts//2022/06/02/searching-algorithms.html</link>
+<guid>localhost:3000/posts//2022/06/02/searching-algorithms.html</guid>
+<pubDate>Thu, 02 Jun 2022 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>TaTeTi</title>
+<link>localhost:3000/posts//2022/05/29/TaTeTi.html</link>
+<guid>localhost:3000/posts//2022/05/29/TaTeTi.html</guid>
+<pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+
+<item>
+<title>Criterios de Divisibilidad</title>
+<link>localhost:3000/posts//2022/05/12/criterios-de-divisibilidad.html</link>
+<guid>localhost:3000/posts//2022/05/12/criterios-de-divisibilidad.html</guid>
+<pubDate>Thu, 12 May 2022 00:00:00 +0000</pubDate>
+<description></description>
+</item>
+
+</channel>
+</rss>

@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="Searching Algorithms">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Searching Algorithms" />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> Searching Algorithms </h1>
+<small style="float:left; color: #888"> 2022 Jun 02 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> Searching Algorithms </title>
+
+<p>¿Cómo buscar un elemento en una secuencia, arreglo, lista, etc de la
+mejor forma posible?</p>
+<p>Imaginemos que tenemos la lista de números enteros
+<code>lista = [1, 5, 9, 2, 6, 3, 5, 12, 8]</code> y queremos saber si el
+número 7 se encuentra en ella. En otras palabras, buscamos al 7 en la
+lista.</p>
+<p>El algoritmo más <em>intuitivo</em> para este caso es el de ir
+preguntando en cada posición de la lista si se encuentra el 7. Lo
+implementamos.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;vector&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> <span class="kw">namespace</span> std<span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> busquedaLineal<span class="op">(</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> v<span class="op">,</span> <span class="dt">int</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> v<span class="op">.</span>size<span class="op">()</span> <span class="op">&amp;&amp;</span> v<span class="op">[</span>i<span class="op">]</span> <span class="op">!=</span> n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        i<span class="op">++;</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> i <span class="op">&lt;</span> v<span class="op">.</span>size<span class="op">();</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">// En el caso del ejemplo</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">7</span><span class="op">;</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> lista <span class="op">=</span> <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">9</span><span class="op">,</span><span class="dv">2</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">12</span><span class="op">,</span><span class="dv">8</span><span class="op">};</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>busquedaLineal<span class="op">(</span>lista<span class="op">,</span> n<span class="op">)</span> <span class="co">// returns false</span></span></code></pre></div>
+<p>Este algoritmo se llama búsqueda lineal (<em>lineal search</em>)</p>
+<p>Después de verlo un rato, podemos ver que en el peor de los casos,
+este es aquel en el que el número no está en la lista (como el del
+ejemplo) el algoritmo pregunta en cada posición del arreglo. Para listas
+pequeñas puede no importarnos que la recorra toda, pero imaginemos
+buscar un elemento en una secuencia de miles o millones de ellos.</p>
+<p>La pregunta que surge entonces es saber si existe un proceso mejor
+que solucione el mismo problema, es decir, si existe un algoritmo más
+<strong>eficiente.</strong></p>
+<blockquote>
+<p>💡 Más adelante vemos que significa que un algoritmo sea mejor o más
+eficiente que otro.</p>
+</blockquote>
+<p>Cambiemos el problema ligeramente y veamos cómo surge casi
+instantáneamente (y de manera muy intuitiva) un algoritmo mejor para
+resolverlo.</p>
+<p>Imaginemos ahora que la lista que tenemos esta ordenada, sí, nada más
+(y nada menos) que eso. Existe ahora un algoritmo más eficiente que
+permita buscar un elemento en esta nueva lista ordenada.</p>
+<p>Acá es donde va un <strong>SPOILER ALERT</strong> para que aquel que
+quiera tomarse un rato para pensar el algoritmo.</p>
+<h2 id="old-school-dictionary">Old school dictionary</h2>
+<p>Utilicemos el siguiente ejemplo (casi fuera de época) que se asemeja
+al problema que estamos intentando resolver.</p>
+<p>¿Cuál es la mejor forma de encontrar una palabra de un diccionario de
+papel?</p>
+<p>Si en el caso de la lista de números no había surgido una idea de
+cómo resolver el problema, en este caso, con palabras en lugar de
+números y un diccionario en lugar de lista, casi seguro que uno se
+imagina por dónde va la cosa.</p>
+<p>La 23a edición del <a
+href="https://es.wikipedia.org/wiki/Diccionario_de_la_lengua_espa%C3%B1ola#cite_note-10">Diccionario
+de la RAE</a> tiene 2376 páginas y 93111 términos definidos. Es fácil
+ver que ir palabra por palabra revisando si es la que estoy buscando no
+es la mejor estrategia. Naturalmente la estrategia que uno utiliza
+es:</p>
+<ol type="1">
+<li>Ir a la palabra del medio (o cerca del medio)</li>
+<li>Ver si mi palabra está antes que esta.
+<ol type="1">
+<li>Si la respuesta es sí, me quedo con la primera mitad</li>
+<li>Si la respuesta es no, me quedo con la segunda mitad</li>
+</ol></li>
+<li>Vuelvo al paso uno</li>
+</ol>
+<p>Queda claro que cada vez que uno vuelva al paso uno de este
+algoritmo, habrá descartado la mitad de elementos que tenía antes. Sin
+embargo, usando el algoritmo anterior se iban descartando elementos de a
+uno.</p>
+<p>Y este algoritmo que va dividiendo en dos la lista en la que estoy
+buscando se llama búsqueda binaria (<em>binary search</em>).</p>
+<p>Volviendo al ejemplo de la lista de números, ahora ordenada, veamos
+una posible implementación de este algoritmo.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> busquedaBinaria<span class="op">(</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> j <span class="op">=</span> s<span class="op">.</span>size<span class="op">()</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>j <span class="op">&gt;</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> k <span class="op">=</span> <span class="op">(</span>i<span class="op">+</span>j<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>s<span class="op">[</span>k<span class="op">]</span> <span class="op">&gt;</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            j <span class="op">=</span> k<span class="op">;</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> k<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> x<span class="op">;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Este algoritmo casi cumple con lo pedido, pero esta fallando en
+algunos casos puntuales. Por ej.:</p>
+<ol type="1">
+<li>¿Qué pasa si la lista tiene 0 elementos?</li>
+<li>¿Si tiene un elemento?</li>
+<li>¿Si el elemento que buscamos es menor al primero de la lista?</li>
+<li>¿Si el elemento que buscamos es mayor al último de la lista?</li>
+</ol>
+<p>Como el problema no nos limita la lista que podemos recibir como
+parámetro, tenemos que tener en cuenta estos casos borde. Volviendo a la
+implementación.</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">bool</span> busquedaBinaria<span class="op">(</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> s<span class="op">,</span> <span class="dt">int</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s<span class="op">.</span>size<span class="op">()</span> <span class="op">==</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span> s<span class="op">.</span>size<span class="op">()</span> <span class="op">==</span> <span class="dv">1</span> <span class="op">){</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> s<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">==</span> x<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span> x <span class="op">&lt;</span> s<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span> x <span class="op">&gt;=</span> s<span class="op">[</span>s<span class="op">.</span>size<span class="op">()-</span><span class="dv">1</span><span class="op">]</span> <span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> s<span class="op">[</span>s<span class="op">.</span>size<span class="op">()-</span><span class="dv">1</span><span class="op">]</span> <span class="op">==</span> x<span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> j <span class="op">=</span> s<span class="op">.</span>size<span class="op">()</span> <span class="op">-</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>j <span class="op">&gt;</span> i <span class="op">+</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> k <span class="op">=</span> <span class="op">(</span>i<span class="op">+</span>j<span class="op">)</span> <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>s<span class="op">[</span>k<span class="op">]</span> <span class="op">&gt;</span> x<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                j <span class="op">=</span> k<span class="op">;</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                i <span class="op">=</span> k<span class="op">;</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> s<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> x<span class="op">;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Y así, con una lista ahora <strong>ordenada</strong> podemos resolver
+el problema de buscar un elemento en la lista de manera más
+eficiente.</p>
+<h2 id="big-o-notation">Big O notation</h2>
+<p>Tenemos que responder ahora cómo sabemos que un algoritmo es mejor
+que otro. Decimos que un algoritmo es más eficiente cuando realiza menos
+operaciones que otro.</p>
+<p>Así, en ciencias de la computación surge la notación Big O para
+clasificar algoritmos de acuerdo al crecimiento en tiempos de ejecución
+y consumo de recursos a medida que aumenta el tamaño de la entrada.</p>
+<blockquote>
+<p>Big O clasifica el rendimiento en el peor caso de ejecución posible.
+Es decir el caso que más operaciones le tome al algoritmo obtener una
+respuesta.</p>
+</blockquote>
+<p>La definición formal puede encontrarse en <a
+href="https://en.wikipedia.org/wiki/Big_O_notation#Formal_definition">Wikipedia</a>
+aunque no es necesario para entender lo que sigue.</p>
+<p>Intuitivamente nos dimos cuenta de que el segundo algoritmo era más
+eficiente, pues en lugar de buscar en cada elemento de la lista, iba
+dividiendo la lista en 2 sucesivamente, descartando en cada paso la
+mitad de los elementos que tenía.</p>
+<p>Entonces, si llamamos <span class="math inline">\(n\)</span> al
+tamaño de la lista, a medida que n crece,</p>
+<ul>
+<li>búsqueda lineal hace <span class="math inline">\(n\)</span> pasos
+para devolver un resultado</li>
+<li>búsqueda binaria hace <span class="math inline">\(log_2(n)\)</span>
+pasos para devolver un resultado</li>
+</ul>
+<p>Si las vemos en un gráfico</p>
+<p>!https://files.realpython.com/media/linear_binary_plot.0fc7428a70f0.png</p>
+<p>Vemos que para valores grandes de number of elements de la lista, el
+algoritmo de búsqueda binaria usa menos pasos para obtener un
+resultado.</p>
+<p>Y por lo tanto podemos concluir que para tamaños de lista
+<em>suficientemente</em> grandes el algoritmo de búsqueda lineal el más
+eficiente que el de búsqueda lineal.</p>
+ </div> 

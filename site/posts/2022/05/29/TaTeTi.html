@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="TaTeTi">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="TaTeTi" />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> TaTeTi </h1>
+<small style="float:left; color: #888"> 2022 May 29 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> TaTeTi </title>
+
+<p>Una partida de TaTeTi, TicTacToe, tres en raya, etc. se finaliza
+cuando:</p>
+<ol type="1">
+<li>Un jugador consigue ubicar tres elementos en linea vertical,
+horizontal o en diagonal.</li>
+<li>Se cubren todos los casilleros de una grilla de 3x3.</li>
+</ol>
+<p>Supongamos que luego del movimiento de un jugador, obtenemos una
+imagen, un estado de la grilla en juego. ¿Cómo se puede saber si la
+partida ha finalizado?</p>
+<p>En lo que sigue vamos a considerar las siguientes reglas:</p>
+<ul>
+<li>Elementos de la grilla.
+<ul>
+<li>0 : Seleccionadas por el jugador uno.</li>
+<li>1 : Seleccionadas por el jugador dos.</li>
+<li>-1 : No seleccionadas.</li>
+</ul></li>
+<li>Resultados posibles.
+<ul>
+<li>0 : Partida finalizada, gana el jugador uno.</li>
+<li>1 : Partida finalizada, gana el jugador dos.</li>
+<li>2 : Partida finalizada, empate.</li>
+<li>3 : Partida no finalizada.</li>
+</ul></li>
+<li>Suponemos que no conocemos el último movimiento realizado.</li>
+</ul>
+<h2 id="desarrollo">Desarrollo</h2>
+<h3 id="teoría-de-primos">Teoría de primos</h3>
+<p>Vamos a utilizar el <a
+href="https://es.wikipedia.org/wiki/Teorema_fundamental_de_la_aritm%C3%A9tica">teorema
+fundamental de la aritmética</a> para determinar si hay un ganador de la
+partida.</p>
+<p>Este teorema nos asegura que,</p>
+<blockquote>
+<p>Todo entero positivo mayor que 1 es un número primo o bien un
+único producto de números primos.</p>
+</blockquote>
+<p>Por ejemplo,</p>
+<p><span class="math display">\[
+6936 = 2^3 \cdot 3 \cdot 17^2 \\
+1200 = 2^4 \cdot 3 \cdot 5^2
+\]</span></p>
+<blockquote>
+<p>La clave es que no existe otra factorización en primos para estos
+números.</p>
+</blockquote>
+<h3 id="algoritmo">Algoritmo</h3>
+<p>Pensemos ahora que tenemos la siguiente grilla,</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m <span class="op">={</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">}</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<p>Es fácil ver que esta partida ha finalizado con empate, veamos el
+caso de una partida finalizada</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m <span class="op">={</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">{-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">}</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">};</span></span></code></pre></div>
+<p>En este caso se ve que el jugador uno (que coloca ceros) es el
+ganador de la partida.</p>
+<p>Asignemos ahora un número primo a cada celda de la grilla, esto
+es</p>
+<p><img src="../../../../images/1.png" /></p>
+<p>Así, a cada jugador vamos a poder asignarle un puntaje en base a la
+celda que halla elegido, multiplicando el puntaje actual por el primo
+que otorga la celda.</p>
+<p>Implementemos esto en C++</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> tateti<span class="op">(</span>vector<span class="op">&lt;</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> <span class="op">&gt;</span> m<span class="op">){</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> resultado <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> puntJugadorUno <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> puntJugadorDos <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> primos <span class="op">=</span> <span class="op">{</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">11</span><span class="op">,</span><span class="dv">13</span><span class="op">,</span><span class="dv">17</span><span class="op">,</span><span class="dv">19</span><span class="op">,</span><span class="dv">23</span><span class="op">};</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Asigno puntajes para cada jugador</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> m<span class="op">.</span>size<span class="op">();</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> m<span class="op">[</span><span class="dv">0</span><span class="op">].</span>size<span class="op">();</span> <span class="op">++</span>j<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>m<span class="op">[</span>i<span class="op">][</span>j<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                puntJugadorUno <span class="op">*=</span> primos<span class="op">[</span><span class="dv">3</span><span class="op">*</span>i<span class="op">+</span>j<span class="op">];</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>m<span class="op">[</span>i<span class="op">][</span>j<span class="op">]</span> <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                puntJugadorDos <span class="op">*=</span> primos<span class="op">[</span><span class="dv">3</span><span class="op">*</span>i<span class="op">+</span>j<span class="op">];</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                resultado <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Ahora, dado el estado de una grilla en juego, tenemos el puntaje que
+tiene cada jugador, queda ver si hay algún ganador, o si la partida
+todavía está en juego.</p>
+<p>Acá es donde entra el teorema fundamental de la aritmética (TFA).
+Sabemos que cualquier número positivo es producto único de primos. Por
+lo tanto a cada una de las 8 jugadas ganadoras podemos asignarle el
+producto de primos de las celdas que la forman.</p>
+<ol type="1">
+<li><span class="math inline">\(H1 = 2 * 3 * 5\)</span></li>
+<li><span class="math inline">\(H2 = 7 * 11 * 13\)</span></li>
+<li><span class="math inline">\(H3 = 17 * 19 * 23\)</span></li>
+<li><span class="math inline">\(V1 = 2 * 7 * 17\)</span></li>
+<li><span class="math inline">\(V2 = 3 * 11 * 19\)</span></li>
+<li><span class="math inline">\(V3 = 5 * 13 * 23\)</span></li>
+<li><span class="math inline">\(D1 = 2 * 11 * 23\)</span></li>
+<li><span class="math inline">\(D2 = 5 * 11 * 17\)</span></li>
+</ol>
+<p>Estos son los posibles escenarios ganadores. Por el TFA sabemos
+entonces que hay un ganador de la partida si alguno de estos productos
+divide al puntaje del jugador.</p>
+<p>Lo implementamos,</p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Verifico si hay ganador</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> ganadores <span class="op">=</span> <span class="op">{</span><span class="dv">2</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">5</span><span class="op">,</span> <span class="dv">7</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">13</span><span class="op">,</span> <span class="dv">17</span><span class="op">*</span><span class="dv">19</span><span class="op">*</span><span class="dv">23</span><span class="op">,</span> <span class="dv">2</span><span class="op">*</span><span class="dv">7</span><span class="op">*</span><span class="dv">17</span><span class="op">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                                 <span class="dv">3</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">19</span><span class="op">,</span> <span class="dv">5</span><span class="op">*</span><span class="dv">13</span><span class="op">*</span><span class="dv">23</span><span class="op">,</span> <span class="dv">2</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">23</span><span class="op">,</span> <span class="dv">5</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">17</span><span class="op">};</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> ganadores<span class="op">.</span>size<span class="op">()</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>resultado <span class="op">==</span> <span class="dv">2</span> <span class="op">||</span> resultado <span class="op">==</span> <span class="dv">3</span><span class="op">)</span> <span class="op">){</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>puntJugadorUno <span class="op">%</span> ganadores<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        resultado <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>puntJugadorDos <span class="op">%</span> ganadores<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>        resultado <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="resultado">Resultado</h3>
+<p>Juntando ambos bloques de código que tenemos obtenemos,</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> tateti<span class="op">(</span>vector<span class="op">&lt;</span>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> <span class="op">&gt;</span> m<span class="op">){</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> resultado <span class="op">=</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> puntJugadorUno <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> puntJugadorDos <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> primos <span class="op">=</span> <span class="op">{</span><span class="dv">2</span><span class="op">,</span><span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">7</span><span class="op">,</span><span class="dv">11</span><span class="op">,</span><span class="dv">13</span><span class="op">,</span><span class="dv">17</span><span class="op">,</span><span class="dv">19</span><span class="op">,</span><span class="dv">23</span><span class="op">};</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> ganadores <span class="op">=</span> <span class="op">{</span><span class="dv">2</span><span class="op">*</span><span class="dv">3</span><span class="op">*</span><span class="dv">5</span><span class="op">,</span> <span class="dv">7</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">13</span><span class="op">,</span> <span class="dv">17</span><span class="op">*</span><span class="dv">19</span><span class="op">*</span><span class="dv">23</span><span class="op">,</span> <span class="dv">2</span><span class="op">*</span><span class="dv">7</span><span class="op">*</span><span class="dv">17</span><span class="op">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                                                         <span class="dv">3</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">19</span><span class="op">,</span> <span class="dv">5</span><span class="op">*</span><span class="dv">13</span><span class="op">*</span><span class="dv">23</span><span class="op">,</span> <span class="dv">2</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">23</span><span class="op">,</span> <span class="dv">5</span><span class="op">*</span><span class="dv">11</span><span class="op">*</span><span class="dv">17</span><span class="op">};</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Asigno puntajes para cada jugador</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> m<span class="op">.</span>size<span class="op">();</span> <span class="op">++</span>i<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> m<span class="op">[</span><span class="dv">0</span><span class="op">].</span>size<span class="op">();</span> <span class="op">++</span>j<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>m<span class="op">[</span>i<span class="op">][</span>j<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>                puntJugadorUno <span class="op">*=</span> primos<span class="op">[</span><span class="dv">3</span><span class="op">*</span>i<span class="op">+</span>j<span class="op">];</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>m<span class="op">[</span>i<span class="op">][</span>j<span class="op">]</span> <span class="op">==</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>                puntJugadorDos <span class="op">*=</span> primos<span class="op">[</span><span class="dv">3</span><span class="op">*</span>i<span class="op">+</span>j<span class="op">];</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>                resultado <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Verifico si hay ganador</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>i <span class="op">&lt;</span> ganadores<span class="op">.</span>size<span class="op">()</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>resultado <span class="op">==</span> <span class="dv">2</span> <span class="op">||</span> resultado <span class="op">==</span> <span class="dv">3</span><span class="op">)</span> <span class="op">){</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>puntJugadorUno <span class="op">%</span> ganadores<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            resultado <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>puntJugadorDos <span class="op">%</span> ganadores<span class="op">[</span>i<span class="op">]</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>            resultado <span class="op">=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        i<span class="op">++;</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> resultado<span class="op">;</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h2 id="test">Test</h2>
+<p>Obtuvimos un programa que creemos verifica si existe un ganador en
+una partida de TaTeTi, ¿Cómo podemos verificar que es correcto?</p>
+<p>La técnica más utilizada en la actualidad es el testing que compara
+el resultado esperado por el programa con el que efectivamente devuelve
+este.</p>
+<p>Veamos algunos casos de test para ver si el programa hace lo que
+queríamos.</p>
+<p>Para lo que sigue usamos la librería de <a
+href="https://github.com/google/googletest">Google Test</a></p>
+<h3 id="casos-de-test-o-test-cases">Casos de test o test cases</h3>
+<p>No buscamos probar en todos los posibles estados de una partida, ya
+que deberíamos probar <a
+href="https://en.wikipedia.org/wiki/Game_complexity#:~:text=For%20tic%2Dtac%2Dtoe%2C,have%20a%20row%20of%20three.">5487
+posibles escenarios</a>.</p>
+<p>Por lo tanto buscamos un conjunto de casos de test que sean
+representativos del total de escenarios posibles.</p>
+<ul>
+<li><p>No hubo movimientos</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> noHuboMovimientos<span class="op">){</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">}</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">3</span><span class="op">);</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Empate</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> empate<span class="op">){</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">}</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">2</span><span class="op">);</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Partida no finalizada</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> noFinalizada<span class="op">){</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">}</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">3</span><span class="op">);</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Gana el jugador uno vertical</p>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> ganaUnoVertical<span class="op">){</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">}</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Gana el jugador dos vertical</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> ganaDosVertical<span class="op">){</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">},</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">}</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Gana el jugador uno horizontal</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> ganaUnoHorizontal<span class="op">){</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">},</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span><span class="op">}</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Gana el jugador dos horizontal</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> ganaDosHorizontal<span class="op">){</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">},</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span><span class="op">,</span><span class="dv">1</span><span class="op">}</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Gana el jugador uno diagonal</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> ganaUnoDiagonal<span class="op">){</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,-</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,-</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">}</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+<li><p>Gana el jugador uno al final</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>TEST<span class="op">(</span>tateti<span class="op">,</span> ganaUnoAlFinal<span class="op">){</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    vector<span class="op">&lt;</span>vector <span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;&gt;</span> m<span class="op">={</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">1</span><span class="op">},</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>            <span class="op">{</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">}</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    EXPECT_EQ<span class="op">(</span>tateti<span class="op">(</span>m<span class="op">),</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div></li>
+</ul>
+<p>Usando un compilador y tester podemos verificar que el programa
+aprueba todos los test cases.</p>
+<p>Por lo tanto determinamos que el programa es correcto respecto al
+problema especificado.</p>
+ </div> 

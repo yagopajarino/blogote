@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="Codeforces 797">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Codeforces 797" />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> Codeforces 797 </h1>
+<small style="float:left; color: #888"> 2022 Jun 09 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> Codeforces 797 </title>
+
+<p>Notas del <a href="https://codeforces.com/contest/1690">Contest 797
+de Codeforces</a>.</p>
+<h2 id="datos-del-contest">Datos del contest</h2>
+<table>
+<thead>
+<tr>
+<th>Fecha</th>
+<th>07/06/2022</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Div</td>
+<td>3</td>
+</tr>
+<tr>
+<td># problems</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Solved</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Rating gained</td>
+<td>+242</td>
+</tr>
+</tbody>
+</table>
+<h2 id="problem-a.-print-a-pedestal">Problem A. Print a pedestal</h2>
+<p><a href="https://codeforces.com/contest/1690/problem/A">Enunciado del
+problema</a></p>
+<p>Nos dan una cantidad de bloques <span
+class="math inline"><em>n</em></span> y con ellos devolver la
+distribución de bloques para armar un "podio" tal que la altura de la
+columna del medio sea mínima.</p>
+<p>Ejemplo</p>
+<p><strong>Input</strong></p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>6</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>11</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>6</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>10</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>100000</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>7</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>8</span></code></pre></div>
+<p><strong>Output</strong></p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>4 5 2</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>2 3 1</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>4 5 1</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>33334 33335 33331</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>2 4 1</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>3 4 1</span></code></pre></div>
+<h3 id="resolución">Resolución</h3>
+<p>Algunas consideraciones o tips:</p>
+<ul>
+<li><p>Todas las columnas tienen que tener altura distinta.</p></li>
+<li><p>La columna del medio tiene que ser más alta que las otras
+dos.</p></li>
+<li><p>La primer columna tiene que ser más alta que la tercera.</p></li>
+<li><p>La suma de las alturas tiene que ser igual a <span
+class="math inline"><em>n</em></span></p></li>
+<li><p>No puede haber columnas con altura cero (o negativa)</p></li>
+</ul>
+<p>Lo primero que consideré es que <span
+class="math inline"><em>n</em>/3</span> debe ser la altura mínima de la
+columna del medio.</p>
+<p>Luego veo que al dividir por 3, se generan tres clases, en función
+del resto de dividir a <span class="math inline"><em>n</em></span> por 3
+(lo llamamos <span class="math inline"><em>r</em></span>). Imaginemos
+que a cada columna le asignamos la parte entera de <span
+class="math inline"><em>n</em>/3</span> = k y definimos <span
+class="math inline"><em>c</em> = [<em>k</em>, <em>k</em>, <em>k</em>]</span>,
+luego:</p>
+<ul>
+<li>Si <span class="math inline"><em>r</em> = 0</span> entonces no
+quedan elementos sueltos para agregar. Quitamos un bloque a la tercer
+columna y se lo agregamos a la del medio. Así <span
+class="math inline"><em>c</em> = [<em>k</em>, <em>k</em> + 1, <em>k</em> − 1]</span></li>
+<li>Si <span class="math inline"><em>r</em> = 1</span> entonces hay un
+elemento suelto para agregar. En este punto hay que separar el análisis
+en dos casos: <span class="math inline"><em>n</em> = 7</span> y <span
+class="math inline"><em>n</em> ≠ 7</span>
+<ul>
+<li>Si <span class="math inline"><em>n</em> ≠ 7</span>, quitamos dos
+elementos a c3, agregamos dos elementos a c2 y uno a c1. Así, <span
+class="math inline"><em>c</em> = [<em>k</em> + 1, <em>k</em> + 2, <em>k</em> − 2]</span></li>
+<li>Si <span class="math inline"><em>n</em> ≠ 7</span> lo que pasa en el
+caso anterior es que <span class="math inline">7/3 = 2 * 3 + 1</span>
+luego si restamos dos como decía el item anterior, generaríamos una
+columna con altura igual a cero. Por lo tanto <span
+class="math inline"><em>c</em> = [<em>k</em>, <em>k</em> + 2, <em>k</em> − 1]</span></li>
+</ul></li>
+<li>Si <span class="math inline"><em>r</em> = 2</span> entonces,
+siguiendo el mismo razonamiento, <span
+class="math inline"><em>c</em> = [<em>k</em> + 1, <em>k</em> + 2, <em>k</em> − 1]</span></li>
+</ul>
+<h4 id="implementación-en-python">Implementación en python</h4>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ncases <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve():</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    nblocks <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    floorDiv <span class="op">=</span> nblocks <span class="op">//</span> <span class="dv">3</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    minHeight <span class="op">=</span> floorDiv <span class="cf">if</span> nblocks <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> floorDiv <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (nblocks <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">0</span>):</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> [floorDiv, floorDiv <span class="op">+</span> <span class="dv">1</span>, floorDiv <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> (nblocks <span class="op">%</span> <span class="dv">3</span> <span class="op">==</span> <span class="dv">1</span>):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> [floorDiv<span class="op">+</span><span class="dv">1</span>, floorDiv <span class="op">+</span> <span class="dv">2</span>, floorDiv <span class="op">-</span> <span class="dv">2</span>] <span class="cf">if</span> nblocks <span class="op">!=</span> <span class="dv">7</span> <span class="cf">else</span> [floorDiv, floorDiv <span class="op">+</span> <span class="dv">2</span>, floorDiv <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> [floorDiv <span class="op">+</span> <span class="dv">1</span>, floorDiv <span class="op">+</span> <span class="dv">2</span>, floorDiv <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    result.append(res)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> []</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(ncases):</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    solve()</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>[<span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span>x[<span class="dv">0</span>]<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>x[<span class="dv">1</span>]<span class="sc">}</span><span class="ss"> </span><span class="sc">{</span>x[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">&quot;</span>) <span class="cf">for</span> x <span class="kw">in</span> result]</span></code></pre></div>
+<h2 id="problem-b.-array-decrements">Problem B. Array Decrements</h2>
+<p><a
+href="https://codeforces.com/contest/1690/problem/B">Enunciado</a></p>
+<p>Nos piden determinar si se puede obtener un arreglo a partir de otro,
+utilizando sucesivamente la siguiente operación:</p>
+<ul>
+<li>Decrementar cada elemento no nulo de la secuencia en uno.</li>
+<li>Si el i-esimo elemento es nulo queda igual.</li>
+</ul>
+<p>Ejemplo.</p>
+<p><strong>Input</strong></p>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>6</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>4</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>3 5 4 1</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>1 3 2 0</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>3</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>1 2 1</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>0 1 0</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>4</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>5 3 7 2</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>1 1 1 1</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>5</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>1 2 3 4 5</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>1 2 3 4 6</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>1</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>8</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>0</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>1</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>4</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>6</span></code></pre></div>
+<p><strong>Output</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>YES</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>YES</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>NO</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>NO</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>YES</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>NO</span></code></pre></div>
+<h3 id="resolución-1">Resolución</h3>
+<p>Sean <strong>a</strong> y <strong>b</strong> secuencias. La solución
+más intuitiva es hacer un loop por toda la secuencia <strong>a</strong>,
+ir restando uno a cada elemento de <strong>a</strong> y preguntar al
+final de cada iteración si es igual a <strong>b</strong>. No testee este
+caso, pero se nota que puede resultar un algoritmo costoso.</p>
+<p>Otra posible implementación consiste en,</p>
+<ul>
+<li>Definimos maxDiff: max(a[i] - b[i] para algún <span
+class="math inline">0 ≤ <em>i</em> &lt; |<em>a</em>|</span>)</li>
+</ul>
+<p>Por lo tanto, después de estudiar un poco el problema se ve que,</p>
+<ul>
+<li>diff tiene que ser mayor igual a cero.</li>
+<li>a[i] - b[i] tiene que ser igual a maxDiff para todos los i tales que
+b[i] ≠ 0</li>
+<li>a[i] - b[i] tiene que ser menor igual a maxDiff para todos los i
+tales que b[i] = 0</li>
+</ul>
+<p>De manera tal que el restar uno a cada elemento sucesivamente se
+obtenga la secuencia <strong>b.</strong></p>
+<h4 id="implementación-en-python-1">Implementación en python</h4>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ncases <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve():</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    lenList <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    a <span class="op">=</span> [<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">str</span>(<span class="bu">input</span>()).split(<span class="st">&quot; &quot;</span>)]</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    b <span class="op">=</span> [<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">str</span>(<span class="bu">input</span>()).split(<span class="st">&quot; &quot;</span>)]</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> [(a[n], b[n], a[n] <span class="op">-</span> b[n]) <span class="cf">for</span> n <span class="kw">in</span> <span class="bu">range</span>(lenList)]</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    maxDiff <span class="op">=</span> <span class="bu">max</span>(x[<span class="dv">2</span>] <span class="cf">for</span> x <span class="kw">in</span> n)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> (i <span class="op">&lt;</span> lenList <span class="kw">and</span> n[i][<span class="dv">2</span>] <span class="op">&gt;=</span> <span class="dv">0</span> <span class="kw">and</span> <span class="kw">not</span> (n[i][<span class="dv">2</span>] <span class="op">&lt;</span> maxDiff <span class="kw">and</span> n[i][<span class="dv">1</span>] <span class="op">!=</span> <span class="dv">0</span>) <span class="kw">and</span> n[i][<span class="dv">2</span>] <span class="op">&lt;=</span>  maxDiff):</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    result.append(<span class="st">&quot;YES&quot;</span> <span class="cf">if</span> i <span class="op">==</span> lenList <span class="cf">else</span> <span class="st">&quot;NO&quot;</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> []</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(ncases):</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    solve()</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>[<span class="bu">print</span>(x) <span class="cf">for</span> x <span class="kw">in</span> result]</span></code></pre></div>
+<h2 id="problem-c.-restoring-the-duration-of-tasks">Problem C. Restoring
+the Duration of Tasks</h2>
+<p><a
+href="https://codeforces.com/contest/1690/problem/C">Enunciado</a></p>
+<p>Piden que dadas una secuencia <strong>a</strong> de tiempo de
+recepción de una tarea y <strong>b</strong> los tiempos de finalización
+de una tarea, determinar la duración de ejecución de una tarea
+considerando,</p>
+<ol type="1">
+<li>Comienza al llegar la primera tarea.</li>
+<li>Si llega una tarea antes de finalizar la que está en proceso, la
+manda al final de la fila.</li>
+<li>Al finalizar una tarea, inmediatamente comienza con la que está al
+comienzo de la fila.</li>
+</ol>
+<p>Ejemplo</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>4</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>3</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>0 3 7</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>2 10 11</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>2</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>10 15</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>11 16</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>9</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>12 16 90 195 1456 1569 3001 5237 19275</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>13 199 200 260 9100 10000 10914 91066 5735533</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>1</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>0</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>1000000000</span></code></pre></div>
+<p><strong>Output</strong></p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode txt"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>2 7 1</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>1 1</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>1 183 1 60 7644 900 914 80152 5644467</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>1000000000</span></code></pre></div>
+<p>Es fácil ver que la primera tarea comienza en cero y termina en
+b[0].</p>
+<p>Luego cada una de las siguientes tareas va a finalizar en b[i] pero
+va a comenzar en el máximo entre el tiempo de finalización de la tarea
+anterior y el tiempo de recepción de la tarea.</p>
+<h4 id="implementación-en-python-2">Implementación en python</h4>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>ncases <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> solve():</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    ntasks <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    begTimes <span class="op">=</span> [<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">str</span>(<span class="bu">input</span>()).split(<span class="st">&quot; &quot;</span>)]</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    endTimes <span class="op">=</span> [<span class="bu">int</span>(x) <span class="cf">for</span> x <span class="kw">in</span> <span class="bu">str</span>(<span class="bu">input</span>()).split(<span class="st">&quot; &quot;</span>)]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    times <span class="op">=</span> [(begTimes[i], endTimes[i]) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(ntasks)]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    r <span class="op">=</span> [<span class="bu">str</span>(times[<span class="dv">0</span>][<span class="dv">1</span>] <span class="op">-</span> times[<span class="dv">0</span>][<span class="dv">0</span>])]</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;</span> ntasks:</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>        r.append(<span class="bu">str</span>(times[i][<span class="dv">1</span>] <span class="op">-</span> <span class="bu">max</span>([begTimes[i], endTimes[i<span class="op">-</span><span class="dv">1</span>]])))</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    result.append(<span class="st">&quot; &quot;</span>.join(r))</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> []</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> x <span class="kw">in</span> <span class="bu">range</span>(ncases):</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    solve()</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>[<span class="bu">print</span>(x) <span class="cf">for</span> x <span class="kw">in</span> result]</span></code></pre></div>
+ </div> 

@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="Criptografía | Hello Cryptography">
+
+
+
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+<div id="color-mode-switch">
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+  </svg>
+  <input type="checkbox" id="switch" />
+  <label for="switch">Dark Mode Toggle</label>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+  </svg>
+</div>
+
+<script type="text/javascript">
+  // Update root html class to set CSS colors
+  const toggleDarkMode = () => {
+    const root = document.querySelector('html');
+    root.classList.toggle('dark');
+  }
+
+  // Update local storage value for colorScheme
+  const toggleColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
+    else localStorage.setItem('colorScheme', 'light');
+  }
+
+  // Set toggle input handler
+  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
+  if (toggle) toggle.onclick = () => {
+    toggleDarkMode();
+    toggleColorScheme();
+  }
+
+  // Check for color scheme on init
+  const checkColorScheme = () => {
+    const colorScheme = localStorage.getItem('colorScheme');
+    // Default to light for first view
+    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
+    // If previously saved to dark, toggle switch and update colors
+    if (colorScheme === 'dark') {
+      toggle.checked = true;
+      toggleDarkMode();
+    }
+  }
+  checkColorScheme();
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Criptografía | Hello Cryptography" />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> Criptografía | Hello Cryptography </h1>
+<small style="float:left; color: #888"> 2024 Jul 19 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> Criptografía | Hello Cryptography </title>
+
+<p>Hace un mes aprox me confirmaban que iba a ser parte del <a
+href="https://pse.dev/en/programs">PSE Core Program</a>. Un programa de
+la Ethereum Foundation de 8 semanas que busca educar en criptografía a
+estudiantes universitarios.</p>
+<p>La semana que viene arranca el PSE Core Program y esta semana (week
+0) nos introducimos al mundo de las ZK proofs y asentamos algunas bases.
+Mi idea es ir presentando algunos temas y dejando algunas reflexiones
+semana a semana. No solo me sirve a mi para asentar conocimientos, sino
+también puede servir para aquellos que estén interesados en el tema.</p>
+<div class="info">
+<p>Mi idea es hacer una serie de post de criptografía con temas que me
+interesen. Los vas a poder identificar por el prefijo
+<strong>Criptografía |</strong> en el título.</p>
+</div>
+<p>A veces pienso que está todo creado, que ya nada puede ser inventado,
+y luego aparecen cosas como las zk proofs que te dejan pensando "cómo
+algo así puede ser posible?"</p>
+<p>Algo parecido me pasó la primera vez que escuché sobre bitcoin y peor
+aún cuando leí el <a
+href="https://bitcoin.org/bitcoin.pdf">paper</a>.</p>
+<p>Y si no te interesa, por lo menos lee este post que te va a dejar
+volando la cabeza, y si te llamás Nacho: <strong>‘Nacho, ¡agarrate los
+pantalones!'</strong></p>
+<p><img src="../../../../images/nacho.gif" /></p>
+<h2 id="donde-está-wally">¿Donde está Wally?</h2>
+<p>Donde está Wally es un libro que tiene imágenes como la de abajo (un
+quilombo de gente y cosas basicamente) y en la que tu objetivo es
+encontrar a Wally, un npc en toda regla.</p>
+<p><img src="../../../../images/image-2.png" /></p>
+<p>Si de pibe lo conociste y lo jugaste, seguro hayas pasado un buen
+rato buscandolo, más del que te gustaría admitir.</p>
+<p>Quizás en algún momento llegaste a pensar si Wally realmente estaba
+en la imagen o el libro/autor/editorial te estaba cagando.</p>
+<h3 id="wally-a-juicio">Wally a juicio</h3>
+<p>Imaginate que sos el hijo de un abogado y le decís a tu viejo que
+Wally no está en el libro que te compraron, obvio tu viejo lleva a Wally
+(a la editoria) a juicio.</p>
+<p>El jucio es bien fácil, la editorial tiene que probar que Wally se
+encuentra en la página en la que estabas jugando. Pero hay algo más:
+como vos no querés que te caguen la sorpresa, la editorial no puede
+revelar en que posición de la página se encuentra Wally.</p>
+<h3 id="wait-wtf">Wait... Wtf?</h3>
+<p>Demostrar que Wally está, pero sin decir donde está? Parece
+imposible, pero el abogado defensor además de abogado es un entusiata
+matemático (nada más alejado de la realidad).</p>
+<p>Se le ocurre lo siguiente, poner una gran sábana con un agujero bien
+chiquito en el centro. Detras de la sábana, colocar la página del libro,
+alineando justo la cara de Wally con el agujero de la sábana.</p>
+<p>Presenta este <em>set up</em> en el juicio y mirando por el agujero,
+tu viejo se de que Wally está en la página, y además no revela en que
+parte de la página está para que vos puedas jugar a encontrarlo.</p>
+<p>Este es el ejemplo canónico de una Zero Knowledge Proof.</p>
+<div class="info">
+<p>Si no encontraste a Wally, está arriba a la derecha.</p>
+</div>
+<p>Acá van otros experimentos mentales:</p>
+<ol type="1">
+<li><a
+href="https://en.wikipedia.org/wiki/Zero-knowledge_proof#Two_balls_and_the_colour-blind_friend">Two
+balls and the colour-blind friend</a></li>
+<li><a
+href="https://en.wikipedia.org/wiki/Zero-knowledge_proof#The_Ali_Baba_cave">The
+Ali Baba cave</a></li>
+</ol>
+<h2 id="zk-proofs">ZK Proofs</h2>
+<p>Ahora sí, de lleno en ZK. Espero que los ejemplos anteriores te hayan
+motivado y ahora estés en modo "Ohhh ok... interesante".</p>
+<p><strong>Una Zero Knowledge Proof es un método criptográfico para
+probar que algo es cierto, sin revelar ningún tipo de información
+extra.</strong></p>
+<p>Otro ejemplo canónico de lo que NO es una ZK Proof podría ser el caso
+en que con tus 18 años recién cumplidos, vas a un boliche con tus
+amigos. Lllegás a la puerta y el guardia te pide el DNI. En realidad lo
+que busca es validar que sos mayor de 18 años para poder entrar. Pero en
+ese proceso, además de verificar tu edad, le <strong>revelas otros datos
+sensibles como tu número de documento y tu dirección</strong>.</p>
+<p>En realidad, en ese momento solo querés demostrar que sos mayor de
+18, sin revelar ningún tipo de información extra, una ZK proof sería
+ideal.</p>
+<p>En toda ZK existen dos tipos de personas: un <em>prover</em> aquel
+que quiere probar algo, y un <em>verifier</em>, aquel que verifica si el
+<em>statement</em> del prover el verdadero.</p>
+<h3 id="propiedades">Propiedades</h3>
+<p>Mi idea no era meterme en teoría, pero es obligatorio nombrar las
+tres propiedades que tiene que cumplir una ZK proof:</p>
+<ol type="1">
+<li><strong>Completeness</strong>: Si un statement es verdadero, el
+prover debe poder convencer al verifier de que el statement es
+verdadero. Muchas veces implica que la probabilidad de dar algo como
+verdadero siendo falso sea muy baja.</li>
+<li><strong>Soundness</strong>: Si un statement es falso, no existe un
+prover engañoso que pueda convencer al verifier de que la declaración es
+verdadera, de nuevo con un margen de error muy pequeño.</li>
+<li><strong>Zero Knowledge</strong>: Si el statement es verdadero, el
+verifier no aprende nada más que este hecho.</li>
+</ol>
+<div class="info">
+<p>Si querés saber más desde lo teórico fijate <a
+href="https://blog.cryptographyengineering.com/2014/11/27/zero-knowledge-proofs-illustrated-primer/">este
+blog post</a></p>
+<p>Te recomiento que intentes entender cómo se prueba la última
+propiedad.</p>
+</div>
+<h3 id="interactive-vs-non-interactive">Interactive vs
+non-interactive</h3>
+<p>Esta es una categorización que me parece interesante. Si pudiste ver
+los ejemplos de ZK que dejé arriba, seguro viste el de La Cueva de
+Alibaba. Seguro viste que la idea de la prueba es ir preguntando varias
+veces lo mismo como para ver si en alguna de esas preguntas el prover se
+da una respuesta falsa y podemos determinar que el statement es
+falso.</p>
+<p>Esa idea se repite varias veces en un montón de ejemplos: imaginate
+que alguien te dice que es un crack adivinando cosas, como el clima,
+seguramente la mejor forma de probarlo sea preguntandole todos los días
+¿Cómo va a estar el clima mañana?. Mientras más predicciones se cumplan,
+mayor será tu confianza en que esa persona realmente predice como va a
+estar el clima.</p>
+<p>En ZK es lo mismo, a medida que repetimos experimentos y el prover
+siempre responde satisfactoriamente, vamos generando confianza en que
+sabe de lo que está hablando, esas son las <strong>interactive
+proofs</strong>.</p>
+<p>Ahora surge el problema con el que siempre nos encontramos los
+programadores, se puede mejorar/eficientizar eso? Tener que repetir
+muchas veces un experimento para convencernos de que algo es cierto no
+parece muy económico (no lo es).</p>
+<p>De allí surge la necesidad de las <strong>non-interactive</strong>
+proofs. En estas, por medio de un único experimento nos podemos
+convencer de que el statement es cierto.</p>
+<p>Acá otra vez un ejemplo canónico que a mi me sorprendió una banda
+cuando lo leí: <a
+href="https://www.wisdom.weizmann.ac.il/~naor/PAPERS/SUDOKU_DEMO/">Zero-Knowledge
+Proof For Sudoku Using Standard Playing Cards</a>. Dale, anda a leerlo y
+después volvé.</p>
+<p>Este ejemplo es <em>non-interactive</em> porque el prover y el
+verifier solo se intercambian un mensaje, que alcanza para probar que el
+tablero del sudoku está completo.</p>
+<div class="info">
+<ul>
+<li><p>Interactive -&gt; varios intercambios de mensajes entre prover y
+verifier</p></li>
+<li><p>Non-interactive -&gt; con un solo mensaje alcanza para hacer la
+prueba</p>
+<p>:::</p></li>
+</ul>
+<h2 id="casos-de-uso">Casos de uso</h2>
+<p>Hay un post muy bueno de casos de uso de ZK proofs en Ethereum: <a
+href="https://ethereum.org/en/zero-knowledge-proofs/#use-cases-for-zero-knowledge-proofs">Use-cases
+for zero-knowledge proofs</a> así que como el post se me está alargando
+bastante voy a dejar que lo revises por tu cuenta.</p>
+<p>Además en el último tiempo se estuvo trabajando en el desarrollo de
+<a
+href="https://ethereum.org/es/developers/docs/scaling/zk-rollups/">zk-rollups</a>
+que permiten usar ZK para validar las transacciones de una <a
+href="https://ethereum.org/en/layer-2/">Layer 2</a>, permitiendo escalar
+Ethereum.</p>
+<p>Pero más aún, Aztec está desarrollando lo que llaman <a
+href="https://azt3c-st.webflow.io/blog/aztecs-zk-zk-rollup-looking-behind-the-cryptocurtain">ZK-ZK-Rollup</a>
+(sostienen que las actuales zk rollups no son tan zk), permitiendo
+ocultar todos los inputs y outputs de una transacción en la blockchain.
+Yo me quedé así cuando lo escuché 🤯</p>
+<p>Si querés saber más, mirate <a
+href="https://youtu.be/f1AD_pbBRCM?t=6664">esta charla de Santiago
+Palladino</a></p>
+<h2 id="cómo-me-meto-en-este-mundo">¿Cómo me meto en este mundo?</h2>
+<p>En principio tenés que saber algunas cosas matemáticas bastante
+simples. Yo te voy a tirar algunos temas como para que bayas
+googleando</p>
+<ol type="1">
+<li>Números primos</li>
+<li>Factorización de enteros</li>
+<li>Aritmética modular</li>
+<li>Grupos y generadores</li>
+<li>Algo de programación general</li>
+</ol>
+<p>Para la parte de programación, te recomiendo como siempre el <a
+href="https://www.edx.org/cs50">CS50 de Harvard</a> que es un poco largo
+pero vale la pena 100%.</p>
+<p>Despues de eso, lenguajes de programación hay muchos, pero recomiendo
+que sepas algo de Javascript: <a
+href="https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures-v8/">este
+curso de freecodecamp</a> puede ser una buena opción.</p>
+<p>En cuanto a lo matemático, si bien es un poco más dificil de aprender
+online, te puedo recomendar dos cosas buenas que nos dejo la
+pandemia:</p>
+<ol type="1">
+<li>El fasciculo 9, material de la materia Álgebra I de las carreras de
+exactas de la UBA. <a
+href="https://cms.dm.uba.ar/depto/public/grado/fascgrado9.pdf">Acá
+está</a></li>
+<li><a href="https://www.youtube.com/@AlgebraIC-gu7oc">Este canal de
+youtube</a> que tiene todas las clases del primer cuatrimestre 2021</li>
+</ol>
+<p>Creo que con el capítulo 3 y 4 del fascículo 9 debería ser sufuciente
+base algebráica, pero si tenés tiempo y ganas estudialo todo que está
+buenísimo.</p>
+<p>Salu2.</p>
+</div>
+ </div> 
