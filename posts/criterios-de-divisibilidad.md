@@ -3,10 +3,6 @@
 [date]: <> (2022/05/12)
 [pandoc]: <> (--mathjax)
 
-## Introducción
-
-![](../../../../images/1.png)
-
 ¿Por qué vale que un número es **par** si su última cifra es 0, 2, 4, 6 u 8?
 
 ¿Cómo sabemos que un número es divisible por 5 si termina en 0 o 5?
@@ -27,7 +23,7 @@ $$
 
 En palabras,
 
-*Para todo **a** y **b** enteros, existen **k,** **r** enteros con r entre 0 y **b;** tales que **a** es igual a k*b + r\*
+> *Para todo **a** y **b** enteros, existen **k,** **r** enteros con r entre 0 y **b;** tales que **a** es igual a k*b + r\*
 
 Y coloquialmente llamamos:
 
@@ -42,7 +38,7 @@ $$
 a|b \iff \exists k \in \mathbb{Z}/a = k.b
 $$
 
-💡 El símbolo “|” significa “divide”
+> 💡 El símbolo “|” significa “divide”
 
 O lo que es lo mismo, que el resto de dividir **a** por **b** es igual a 0.
 
@@ -92,7 +88,7 @@ $$
 
 Donde $n$ es la cantidad de dígitos menos uno del número y $c_i$ es el símbolo en la posición $i$.
 
-🔑 Esta es la notación formal para el sistema que usamos de forma natural todos los días
+> 🔑 Esta es la notación formal para el sistema que usamos de forma natural todos los días
 
 Por ejemplo sabemos que el número,
 
@@ -113,7 +109,7 @@ Vamos a ir descubriendo por qué valen los criterios de divisibilidad del dos, t
 
 ### Divisibilidad por 2
 
-Un número es divisible por 2 si: el número termina en una cifra par (0, 2, 4, 6, 8).
+> Un número es divisible por 2 si: el número termina en una cifra par (0, 2, 4, 6, 8).
 
 Vamos a probar la validez de este criterio (y todos los demás) usando todo lo que estuvimos viendo previamente.
 
@@ -155,7 +151,7 @@ Y esto quiere decir, como queríamos probar, que un número es divisible por 2 (
 
 ### Divisibilidad por 3
 
-Un número es divisible por 3 si: la suma de sus cifras es un múltiplo de 3.
+> Un número es divisible por 3 si: la suma de sus cifras es un múltiplo de 3.
 
 Vamos a usar el mismo razonamiento que en el caso anterior
 
@@ -202,7 +198,7 @@ Y esto quiere decir, como queríamos probar, que un número es divisible por 3 (
 
 ### Divisibilidad por 5
 
-Un número es divisible por 5 si: la última cifra es 0 o 5.
+> Un número es divisible por 5 si: la última cifra es 0 o 5.
 
 De nuevo usamos los visto en los casos anteriores.
 
