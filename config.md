@@ -1,5 +1,5 @@
 [title]: <> (Yago Pajarino Blog)
-[icon]: <> (https://cdn-icons-png.flaticon.com/512/10026/10026257.png)
+[icon]: <> (https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG)
 [server]: <> (localhost:3000)
 [website_root]: <> (/var/www/html)
 [domain]: <> (localhost:3000)
