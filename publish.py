@@ -25,6 +25,9 @@ PRE_HEADER = """
 
 HEADER_TEMPLATE = """
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="$root/css/common-vendor.b8ecfc406ac0b5f77a26.css">
 <link rel="stylesheet" type="text/css" href="$root/css/fretboard.f32f2a8d5293869f0195.css">
 <link rel="stylesheet" type="text/css" href="$root/css/pretty.0ae3265014f89d9850bf.css">
@@ -52,52 +55,13 @@ MathJax = {
 
 <div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
 
-<div id="color-mode-switch">
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-  </svg>
-  <input type="checkbox" id="switch" />
-  <label for="switch">Dark Mode Toggle</label>
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-  </svg>
-</div>
 """
 
 TOGGLE_COLOR_SCHEME_JS = """
 <script type="text/javascript">
-  // Update root html class to set CSS colors
-  const toggleDarkMode = () => {
-    const root = document.querySelector('html');
-    root.classList.toggle('dark');
-  }
-
-  // Update local storage value for colorScheme
-  const toggleColorScheme = () => {
-    const colorScheme = localStorage.getItem('colorScheme');
-    if (colorScheme === 'light') localStorage.setItem('colorScheme', 'dark');
-    else localStorage.setItem('colorScheme', 'light');
-  }
-
-  // Set toggle input handler
-  const toggle = document.querySelector('#color-mode-switch input[type="checkbox"]');
-  if (toggle) toggle.onclick = () => {
-    toggleDarkMode();
-    toggleColorScheme();
-  }
-
-  // Check for color scheme on init
-  const checkColorScheme = () => {
-    const colorScheme = localStorage.getItem('colorScheme');
-    // Default to light for first view
-    if (colorScheme === null || colorScheme === undefined) localStorage.setItem('colorScheme', 'light');
-    // If previously saved to dark, toggle switch and update colors
-    if (colorScheme === 'dark') {
-      toggle.checked = true;
-      toggleDarkMode();
-    }
-  }
-  checkColorScheme();
+  // Set dark mode by default
+  const root = document.querySelector('html');
+  root.classList.add('dark');
 </script>
 """
 
@@ -259,6 +223,7 @@ def defancify(text):
 
 
 def make_categories_header(categories, root_path):
+    return ""
     o = ["<center><hr>"]
     for category in categories:
         template = '<span class="toc-category" style="font-size:{}%"><a href="{}/categories/{}.html">{}</a></span>'
