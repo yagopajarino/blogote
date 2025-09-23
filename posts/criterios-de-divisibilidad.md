@@ -180,7 +180,7 @@ Si ahora tomamos resto a cada sumando
 <aside
 🔑 Acá está la diferencia con el caso anterior (y con los que sigan).
 
-</aside
+</aside>
 
 $$
 n \equiv 0(3) \iff c_1 \cdot 1^{r} + c_2 \cdot 1^{r-1} + ... + c_{r-1} \cdot 1^{1} + c_{r} \cdot 1 \equiv 0 (3)
