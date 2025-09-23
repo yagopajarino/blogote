@@ -177,9 +177,8 @@ $$
 
 Si ahora tomamos resto a cada sumando
 
-<aside
+<aside>
 🔑 Acá está la diferencia con el caso anterior (y con los que sigan).
-
 </aside>
 
 $$
