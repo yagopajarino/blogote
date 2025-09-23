@@ -8,7 +8,7 @@ python3 publish.py ./posts/*
 # Switch to gh-pages branch
 git checkout gh-pages
 
-cp -r site/* 
+cp -r site/* .
 rm -rf site/
 
 # Commit and push
