@@ -1,4 +1,4 @@
-[title]: <> (Yago Pajarino Blog)
+[title]: <> (Yago Pajarino)
 [icon]: <> (https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG)
 [server]: <> (localhost:3000)
 [website_root]: <> (/var/www/html)
