@@ -1,0 +1,102 @@
+
+
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<style>
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1c1c1c;
+        color: white;
+    }
+    .markdown-body table tr {
+        background-color: #1c1c1c;
+    }
+    .markdown-body table tr:nth-child(2n) {
+        background-color: black;
+    }
+}
+</style>
+
+
+
+<link rel="alternate" type="application/rss+xml" href="../../../../feed.xml" title="ZKVMeable">
+
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../../../css/common-vendor.b8ecfc406ac0b5f77a26.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/fretboard.f32f2a8d5293869f0195.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty.0ae3265014f89d9850bf.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/pretty-vendor.83ac49e057c3eac4fce3.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/global.css">
+<link rel="stylesheet" type="text/css" href="../../../../css/misc.css">
+
+<script type="text/x-mathjax-config">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\(', '\)']]
+  },
+  svg: {
+    fontCache: 'global',
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="../../../../scripts/tex-svg.js">
+</script>
+
+<style>
+</style>
+
+<div id="doc" class="container-fluid markdown-body comment-enabled" data-hard-breaks="true">
+
+
+<script type="text/javascript">
+  // Set dark mode by default
+  const root = document.querySelector('html');
+  root.classList.add('dark');
+</script>
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="ZKVMeable" />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yagopajarino/yagopajarino/refs/heads/main/yago-thumbnail.JPG" />
+
+
+<br>
+<h1 style="margin-bottom:7px"> ZKVMeable </h1>
+<small style="float:left; color: #888"> 2025 Sep 22 </small>
+<small style="float:right; color: #888"><a href="../../../../index.html">See all posts</a></small>
+<br> <br> <br>
+<title> ZKVMeable </title>
+
+<p><em>Based on a true story</em>.</p>
+<p>I had to renew my passport, expiration was close, I hadn't any trip
+planned so I wans't too worried about it. I went to the official
+government web, booked a slot on the calendar a couple weeks ahead, all
+good. At checkout, I got a confirmation message saying my appointment
+was succesfully created, green checkmark included, of course.</p>
+<p>A week before the appointment, I went back to the website to double
+check the details, but to my surprise, it didn't exist. No appointment
+had been created, so I had to take a new one and wait a few more
+weeks.</p>
+<p><em>What if I had a way to verify that my appointment was actually
+created?</em></p>
+<p>I've been doing some research on ZKVMs during the last few days and
+saw this line on the <a
+href="https://eprint.iacr.org/2023/1217.pdf">Jolt paper</a></p>
+<blockquote>
+<p>As an example, the prover could be a cloud service provider running
+an expensive computation on behalf of its client who acts as the
+verifier. A SNARK gives the verifier confidence that the prover ran the
+computation honestly</p>
+</blockquote>
+<p>And that brought back memories of my failed passport appointment.
+What if, alongside the green checkmark on the confirmation page, I also
+had a proof I could verify? That way, I'd known for certain that the
+goverment server had actually <em>made the computation</em> of taking my
+appointment and record it in the appointments database.</p>
+ </div> 
