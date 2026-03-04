@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import HomepageCover from '../assets/homepage-cover.jpeg';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Welcome</h1>
+			<p>
+				My name is Yago, I'm passionate about <i>fútbol</i>, coffee, crypto, photography and always open to learn new stuff.
+			</p>
+			<p>
+				This blog is my way of expressing ideas, sharing things I learn online/books/podcasts and feelings. I like to explain difficult
+				topics into daily language for non-technical people (<i>tech para la gente de a pie</i>), while also adding my personal perspectives on things.
+			</p>
+			<p>
+				I'm passionate about photography too. You will find my photos on the blog posts as I think is a good way of combining both:
+				the ideas on text and the things I see on pixels.
+			</p>
+			<Image src={HomepageCover} alt="" />
+			<i>Aug 2025 holidays on Fisterra, Spain</i>
+			<p>Although my primary langauge is Spanish, I'll try to make as much content as possible in English, as it helps me getting confortable with the language.
+			As a pure design choice to keep the content real, I'll skip using AI my writings, so forgive any gramar or tone error.</p>
+		</main>
+		<Footer />
+	</body>
+</html>
