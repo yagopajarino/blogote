@@ -7,7 +7,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://yagopajarino.github.io',
-	base: '/blogote/',
+	base: '/',
 	integrations: [mdx(), sitemap()],
 	markdown: {
 		remarkPlugins: [
