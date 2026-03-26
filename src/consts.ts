@@ -3,3 +3,4 @@
 
 export const SITE_TITLE = 'Blog';
 export const SITE_DESCRIPTION = 'Notes on work, learning, and experiments.';
+export const SITE_TWITTER_HANDLE = '@0xyago';
