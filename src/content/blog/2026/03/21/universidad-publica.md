@@ -3,6 +3,7 @@ title: Viva la República Carajo
 pubDate: 2026-03-21
 description: Mi opinión sobre el conflicto universitario, la ley de financiamiento y por qué las universidades públicas importan para el desarrollo del país.
 heroImage: ./20260321-cover.jpeg
+socialImage: ./20260321-social.jpeg
 heroImageCaption: Mate
 ---
 
